@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NUANCE — Тактическая Группа</title>
+  <meta name="description" content="Лендинг-портфолио тактической группы NUANCE. Состав команды, философия бренда и ключевые компетенции." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+  <!-- Глобальный фоновый слой (сохраняется для всех блоков) -->
+  <div class="global-bg" aria-hidden="true">
+    <div class="global-bg-gradient"></div>
+    <img src="/assets/images/NUANCE logo.png" alt="" class="global-bg-logo" />
+  </div>
+
+  <!-- 3.1 Header (Глобальная навигация) -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="#" class="header-logo" aria-label="NUANCE Tactical Group">
+        <img src="/assets/images/2_Header.png" alt="NUANCE Logo" />
+      </a>
+      
+      <nav class="header-nav">
+        <a href="#genesis" class="nav-link">О Нас</a>
+        <a href="#team" class="nav-link">Команда</a>
+        <a href="#projects" class="nav-link">Проекты</a>
+        <a href="#cta" class="nav-link">Контакты</a>
+      </nav>
+
+      <div class="header-controls">
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="ru">RU</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        
+        <button class="mobile-toggle" aria-label="Открыть меню">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3.2 Hero-блок (Точка входа) -->
+  <section id="hero" class="hero">
+    <div class="container hero-content">
+      <h1 class="hero-title">
+        Рожденные импровизировать
+      </h1>
+
+      <p class="hero-subtitle">
+        Три абсолютно разных игрока. Один идеальный симбиоз для решения нерешаемых задач.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3.3 & 3.4 Combined Sticky Scroll Section ("О нас" - История & Механика) -->
+  <section id="genesis" class="about-sticky-section">
+    <div class="about-sticky-viewport">
+      <div class="container about-container">
+        
+        <!-- Центрированный подблок: [О нас] & 2-сегментная линия трекера -->
+        <div class="about-header-subblock">
+          <h1 class="about-main-title">О нас</h1>
+          <div class="about-progress-tracker">
+            <div class="tracker-segment segment-1 active" data-layer="0"></div>
+            <div class="tracker-segment segment-2" data-layer="1"></div>
+          </div>
+        </div>
+
+        <!-- Стек слоев (Sticky Scroll Cross-Fade) -->
+        <div class="about-layers-stack">
+          
+          <!-- Слой 1: История (3.3) -->
+          <div class="about-layer layer-0 active" data-layer-id="0">
+            <div class="grid-12">
+              <!-- Левая зона (5 колонок) -->
+              <div class="col-5 genesis-text-block">
+                <p class="genesis-paragraph lead">
+                  Мы — <strong class="text-highlight">NUANCE</strong>. Тактическая группа быстрого реагирования. Там, где большинство игроков упирается в шаблонные лобовые штурмы, мы просачиваемся в тыл и ломаем оборону оппонента изнутри.
+                </p>
+
+                <h2 class="about-sub-title">История</h2>
+
+                <p class="genesis-paragraph">
+                  История NUANCE началась на обломках более крупного комьюнити — S.O.S.I.4. Первоначальный замысел был амбициозным: массированные скоординированные действия, меняющие ход матчей. Но массовость предсказуемо превратилась в неповоротливость и уязвимость. План забуксовал.
+                </p>
+
+                <p class="genesis-paragraph">
+                  Из всего состава осталась лишь тройка игроков, осознавших базовое правило: для эффективности нужна хирургическая точность, а не толпа. Так сформировался NUANCE.
+                </p>
+              </div>
+
+              <!-- Правая зона (7 колонок) -->
+              <div class="col-7">
+                <div class="genesis-image-block">
+                  <img src="/assets/images/About. Screen 1.png?v=1749" alt="История NUANCE — S.O.S.I.4 Генезис" loading="eager" />
+                  <div class="genesis-image-overlay"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Слой 2: Механика (3.4) -->
+          <div class="about-layer layer-1" data-layer-id="1">
+            <div class="grid-12">
+              <!-- Левая зона (5 колонок) -->
+              <div class="col-5 genesis-text-block">
+                <h2 class="about-sub-title">МЕХАНИКА</h2>
+
+                <p class="genesis-paragraph lead">
+                  NUANCE функционирует как единый механизм, где нет универсальных бойцов. Архитектура нашего взаимодействия выстроена так, что уязвимость одного перекрывается сильными сторонами другого.
+                </p>
+
+                <p class="genesis-paragraph">
+                  Здесь нет борьбы за личную славу. Наша главная сила кроется в принятии собственной неидеальности. Три разных стиля игры, три абсолютно непохожих майндсета мгновенно замыкаются в монолитную базу, чтобы вытащить ситуацию на чистой импровизации и характере.
+                </p>
+              </div>
+
+              <!-- Правая зона (7 колонок) -->
+              <div class="col-7">
+                <div class="genesis-image-block">
+                  <img src="/assets/images/About. Screen 2.jpg" alt="Механика NUANCE — Единый механизм" loading="lazy" />
+                  <div class="genesis-image-overlay"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="/src/scripts/main.js"></script>
+</body>
+</html>

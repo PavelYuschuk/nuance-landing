@@ -1,0 +1,59 @@
+/* ==========================================
+   NUANCE Design System Tokens (PRD v.1.1)
+   ========================================== */
+
+:root {
+  /* Color Palette - Base & Surfaces */
+  --color-bg-base: #0F0F0F;
+  --color-bg-ambient: radial-gradient(circle at center, #141029 0%, #0F0F0F 100%);
+  --color-surface: #141C29;
+  --color-border: #27354D;
+  
+  /* Typography Colors */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #888888;
+  
+  /* Player Accent Markers */
+  --color-accent-1: #C1FF00; /* Presa4ek (Left segment) */
+  --color-accent-2: #00E5FF; /* Art1zi (Top right segment) */
+  --color-accent-3: #FFC107; /* Matvi4 (Bottom right segment) */
+  
+  /* Typography Families */
+  --font-heading: 'Rajdhani', sans-serif;
+  --font-body: 'JetBrains Mono', monospace;
+  --font-ui: 'Sofia Sans Semi Condensed', sans-serif;
+  
+  /* Typography Sizes & Heights */
+  --font-size-body: 1rem; /* 16px */
+  --line-height-body: 1.5;
+  
+  /* Layout & Grid Tokens */
+  --header-height: 64px;
+  --grid-columns: 12;
+  --grid-gap: 24px;
+  --container-max-width: 1440px;
+  --container-padding: 32px;
+  
+  /* Visual Effects */
+  --glass-bg: rgba(20, 28, 41, 0.65);
+  --glass-border: 1px solid var(--color-border);
+  --glass-blur: blur(12px);
+}
+
+/* Tablet Overrides */
+@media (max-width: 1024px) {
+  :root {
+    --grid-columns: 8;
+    --grid-gap: 16px;
+    --container-padding: 24px;
+  }
+}
+
+/* Mobile Overrides */
+@media (max-width: 768px) {
+  :root {
+    --grid-columns: 1;
+    --grid-gap: 16px;
+    --container-padding: 16px;
+  }
+}

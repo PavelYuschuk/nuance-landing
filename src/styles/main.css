@@ -1,0 +1,49 @@
+/* ==========================================
+   NUANCE Main Stylesheet Bundle
+   ========================================== */
+
+@import './variables.css';
+@import './reset.css';
+@import './typography.css';
+@import './grid.css';
+@import './header.css';
+@import './hero.css';
+@import './genesis.css';
+
+/* Global Fixed Background (Persistent Hero Atmosphere across all blocks) */
+.global-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.global-bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 45%, #141C29 0%, #0F0F0F 85%);
+  opacity: 0.95;
+}
+
+.global-bg-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(85vw, 700px);
+  height: auto;
+  opacity: 0.22;
+  filter: blur(9px) drop-shadow(0 0 25px rgba(0, 229, 255, 0.15));
+  user-select: none;
+}
+
+/* Shared Utilities */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+}

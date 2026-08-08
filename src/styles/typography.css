@@ -1,0 +1,61 @@
+/* ==========================================
+   Typography Setup & Rules (PRD v.1.1)
+   ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Rajdhani:wght@600;700&family=Sofia+Sans+Semi+Condensed:wght@500&display=swap');
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
+}
+
+/* Headings H1-H3: Rajdhani, 600/700, Uppercase */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* UI Elements & Subtitles: Sofia Sans Semi Condensed, 500 */
+.ui-text,
+.subtitle,
+.nav-link,
+.badge,
+.tag {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Secondary Text */
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+/* Responsive font scaling for headings on Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+  h1, h2, h3 {
+    font-size: calc(100% * 0.8);
+  }
+}

@@ -1,0 +1,293 @@
+/* ==========================================
+   3.3 & 3.4 Combined Sticky Scroll Section ("О нас" - История & Механика)
+   ========================================== */
+
+.about-sticky-section {
+  position: relative;
+  height: 200vh; /* 2 layers sticky scroll distance on all devices */
+  background: transparent;
+}
+
+.about-sticky-viewport {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: calc(var(--header-height) + 10px);
+  padding-bottom: 20px;
+}
+
+.about-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* ==========================================
+   Left-Aligned Top Sub-block: [О нас] & Scaled 2-Segment Tracker Line
+   ========================================== */
+
+.about-header-subblock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligned strictly to left edge */
+  justify-content: flex-start;
+  text-align: left;
+  gap: 10px;
+  margin-bottom: 28px;
+  width: fit-content; /* Sized precisely to the title width */
+}
+
+/* Large Title for "О нас" */
+.about-main-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  letter-spacing: 0.05em;
+  line-height: 1.05;
+  margin: 0;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+}
+
+/* 2-Segment Progress Line scaled relative to [О нас] box width */
+.about-progress-tracker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%; /* Scaled relative to the title box */
+  height: 3px;
+}
+
+.tracker-segment {
+  flex: 1;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+/* White Glow Active State */
+.tracker-segment.active {
+  background: #FFFFFF;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 4px #FFFFFF;
+  transform: scaleY(1.3);
+}
+
+/* ==========================================
+   Layer Stack Container & Asymmetrical Transitions
+   ========================================== */
+
+.about-layers-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  position: relative;
+  min-height: 440px;
+}
+
+/* Inactive Layer: REXKO / INSTANT disappearance */
+.about-layer {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(12px);
+  /* Instant disappearing transition (exit) */
+  transition: opacity 0.05s ease-out, transform 0.05s ease-out, visibility 0.05s ease-out;
+}
+
+/* Active Layer: SLOWER / SMOOTH Fade-In Entrance */
+.about-layer.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  /* Slower, smooth fade-in enter */
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.75s ease;
+}
+
+/* Align grid columns to the top border */
+.about-layer .grid-12 {
+  align-items: flex-start;
+}
+
+/* Left Zone: Text Content */
+.genesis-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+
+/* Subheading for [История] & [МЕХАНИКА] */
+.about-sub-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  letter-spacing: 0.08em;
+  margin: 4px 0;
+}
+
+.genesis-paragraph {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+}
+
+.genesis-paragraph.lead {
+  font-size: 1.05rem;
+  line-height: 1.42;
+  color: var(--color-text-primary);
+}
+
+.genesis-paragraph .text-highlight {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+/* Right Zone: Image Frame */
+.genesis-image-block {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.genesis-image-block:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 255, 255, 0.08);
+}
+
+.genesis-image-block img {
+  width: 100%;
+  height: clamp(260px, 40vh, 440px);
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.genesis-image-block:hover img {
+  transform: scale(1.02);
+}
+
+.genesis-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 65%, rgba(15, 15, 15, 0.8) 100%);
+  pointer-events: none;
+}
+
+/* ==========================================
+   Responsive Adaptations for Tablet & Phone (Persistent Layered Sticky Block)
+   ========================================== */
+
+/* Tablet Adaptation (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .about-sticky-viewport {
+    padding-top: calc(var(--header-height) + 16px);
+    padding-bottom: 16px;
+  }
+
+  .about-header-subblock {
+    margin-bottom: 20px;
+    gap: 8px;
+  }
+
+  .about-main-title {
+    font-size: 2.4rem;
+  }
+
+  .genesis-text-block {
+    gap: 12px;
+  }
+
+  .genesis-paragraph {
+    font-size: 0.9rem;
+    line-height: 1.38;
+  }
+
+  .genesis-paragraph.lead {
+    font-size: 0.98rem;
+  }
+
+  .genesis-image-block img {
+    height: clamp(220px, 32vh, 340px);
+  }
+}
+
+/* Phone / Mobile Adaptation (max-width: 768px) */
+@media (max-width: 768px) {
+  .about-sticky-viewport {
+    padding-top: calc(var(--header-height) + 12px);
+    padding-bottom: 12px;
+  }
+
+  .about-header-subblock {
+    margin-bottom: 14px;
+    gap: 6px;
+  }
+
+  .about-main-title {
+    font-size: 1.9rem;
+  }
+
+  .about-sub-title {
+    font-size: 1rem;
+    margin: 2px 0;
+  }
+
+  .genesis-text-block {
+    gap: 8px;
+  }
+
+  .genesis-paragraph {
+    font-size: 0.84rem;
+    line-height: 1.35;
+  }
+
+  .genesis-paragraph.lead {
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
+
+  .genesis-image-block img {
+    height: clamp(150px, 24vh, 220px);
+  }
+}
+
+/* Small Mobile Adaptation (max-width: 480px) */
+@media (max-width: 480px) {
+  .about-main-title {
+    font-size: 1.65rem;
+  }
+
+  .about-sub-title {
+    font-size: 0.92rem;
+  }
+
+  .genesis-paragraph {
+    font-size: 0.8rem;
+    line-height: 1.32;
+  }
+
+  .genesis-image-block img {
+    height: clamp(130px, 20vh, 180px);
+  }
+}

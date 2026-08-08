@@ -1,0 +1,59 @@
+/* ==========================================
+   Engineering Grid Architecture (PRD v.1.1)
+   ========================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  gap: var(--grid-gap);
+  align-items: center;
+}
+
+/* Specific Column Utilities */
+.col-5 {
+  grid-column: span 5;
+}
+
+.col-7 {
+  grid-column: span 7;
+}
+
+.col-6 {
+  grid-column: span 6;
+}
+
+.col-12 {
+  grid-column: span 12;
+}
+
+/* Tablet Grid Breakdown (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .col-5, .col-7 {
+    grid-column: span 4; /* Equal 4+4 split in 8-col grid for Team section */
+  }
+  
+  .col-6 {
+    grid-column: span 8;
+  }
+}
+
+/* Mobile Grid Breakdown (max-width: 768px) */
+@media (max-width: 768px) {
+  .grid-12 {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .col-5, .col-6, .col-7, .col-12 {
+    grid-column: span 1;
+  }
+}
