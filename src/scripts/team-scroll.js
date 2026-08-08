@@ -13,8 +13,8 @@ export function initTeamStickyScroll() {
   function updateTeamStickyScroll() {
     const rect = section.getBoundingClientRect();
     
-    // Completely isolated: Section 3.4 activates ONLY when top of #team reaches viewport top (rect.top <= 10px)
-    if (rect.top <= 10) {
+    // Completely isolated: Section 3.4 activates sticky position ONLY when #team reaches viewport top (rect.top <= 0)
+    if (rect.top <= 0) {
       viewport.classList.add('visible');
     } else {
       viewport.classList.remove('visible');

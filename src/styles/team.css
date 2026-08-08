@@ -9,7 +9,7 @@
 }
 
 .team-sticky-viewport {
-  position: sticky;
+  position: relative; /* Default to normal flow so it cannot stick or overlap section 3.3 */
   top: 0;
   height: 100vh;
   display: flex;
@@ -19,13 +19,14 @@
   padding-top: calc(var(--header-height) + 60px);
   padding-bottom: 24px;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
 }
 
 .team-sticky-viewport.visible {
+  position: sticky; /* Only activate sticky behavior when Section 3.4 is reached */
   opacity: 1;
-  visibility: visible;
+  pointer-events: auto;
 }
 
 .team-container {
