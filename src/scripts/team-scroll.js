@@ -6,13 +6,21 @@ export function initTeamStickyScroll() {
   const section = document.querySelector('.team-sticky-section');
   const layers = document.querySelectorAll('.team-layer');
   const trackerSegments = document.querySelectorAll('.team-tracker-segment');
+  const viewport = section ? section.querySelector('.team-sticky-viewport') : null;
 
-  if (!section || layers.length === 0) return;
+  if (!section || layers.length === 0 || !viewport) return;
 
   function updateTeamStickyScroll() {
     const rect = section.getBoundingClientRect();
-    const sectionHeight = section.offsetHeight - window.innerHeight;
     
+    // Completely isolated: Section 3.4 activates ONLY when top of #team reaches viewport top (rect.top <= 10px)
+    if (rect.top <= 10) {
+      viewport.classList.add('visible');
+    } else {
+      viewport.classList.remove('visible');
+    }
+
+    const sectionHeight = section.offsetHeight - window.innerHeight;
     if (sectionHeight <= 0) return;
 
     // Calculate scroll progress from 0.0 to 1.0 inside 300vh sticky section

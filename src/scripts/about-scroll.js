@@ -1,13 +1,15 @@
 /* ==========================================
-   Sticky Scroll & Layer Switching Logic for Section "О нас" (3 Layers)
+   Sticky Scroll & Exit Motion Logic for Section "О нас" (3 Layers)
    ========================================== */
 
 export function initAboutStickyScroll() {
   const section = document.querySelector('.about-sticky-section');
+  const viewport = document.querySelector('.about-sticky-viewport');
+  const container = document.querySelector('.about-container');
   const layers = document.querySelectorAll('.about-layer');
   const trackerSegments = document.querySelectorAll('.tracker-segment');
 
-  if (!section || layers.length === 0) return;
+  if (!section || !viewport || layers.length === 0) return;
 
   function updateStickyScroll() {
     const rect = section.getBoundingClientRect();
@@ -47,6 +49,23 @@ export function initAboutStickyScroll() {
         segment.classList.remove('active');
       }
     });
+
+    // Exit Parallax & Fade-out motion when exiting Section 3.3 (identical to Hero section exit)
+    if (progress >= 0.85) {
+      const exitProgress = (progress - 0.85) / 0.15; // 0.0 to 1.0
+      const translateY = -exitProgress * 60; // Upward exit motion
+      const opacity = Math.max(0, 1 - exitProgress * 1.25);
+
+      if (container) {
+        container.style.transform = `translateY(${translateY}px)`;
+        container.style.opacity = opacity.toFixed(2);
+      }
+    } else {
+      if (container) {
+        container.style.transform = 'translateY(0px)';
+        container.style.opacity = '1';
+      }
+    }
   }
 
   window.addEventListener('scroll', updateStickyScroll, { passive: true });
