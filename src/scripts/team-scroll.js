@@ -1,15 +1,15 @@
 /* ==========================================
-   Sticky Scroll & Layer Switching Logic for Section "О нас" (3 Layers)
+   Sticky Scroll Logic for Section 3.4 "Команда" (3 Players)
    ========================================== */
 
-export function initAboutStickyScroll() {
-  const section = document.querySelector('.about-sticky-section');
-  const layers = document.querySelectorAll('.about-layer');
-  const trackerSegments = document.querySelectorAll('.tracker-segment');
+export function initTeamStickyScroll() {
+  const section = document.querySelector('.team-sticky-section');
+  const layers = document.querySelectorAll('.team-layer');
+  const trackerSegments = document.querySelectorAll('.team-tracker-segment');
 
   if (!section || layers.length === 0) return;
 
-  function updateStickyScroll() {
+  function updateTeamStickyScroll() {
     const rect = section.getBoundingClientRect();
     const sectionHeight = section.offsetHeight - window.innerHeight;
     
@@ -19,10 +19,10 @@ export function initAboutStickyScroll() {
     const currentScroll = -rect.top;
     const progress = Math.max(0, Math.min(1, currentScroll / sectionHeight));
 
-    // 3 layers: 
-    // Layer 0 (3.3.0 Кто мы) for 0 <= progress < 0.333
-    // Layer 1 (3.3.1 История) for 0.333 <= progress < 0.666
-    // Layer 2 (3.3.2 Механизм) for 0.666 <= progress <= 1.0
+    // 3 player layers: 
+    // Player 0 (Presa4ek) for 0 <= progress < 0.333
+    // Player 1 (Art1zi) for 0.333 <= progress < 0.666
+    // Player 2 (Matvi4) for 0.666 <= progress <= 1.0
     let activeIndex = 0;
     if (progress >= 0.666) {
       activeIndex = 2;
@@ -49,12 +49,12 @@ export function initAboutStickyScroll() {
     });
   }
 
-  window.addEventListener('scroll', updateStickyScroll, { passive: true });
-  window.addEventListener('resize', updateStickyScroll, { passive: true });
+  window.addEventListener('scroll', updateTeamStickyScroll, { passive: true });
+  window.addEventListener('resize', updateTeamStickyScroll, { passive: true });
 
   if (window.lenisInstance) {
-    window.lenisInstance.on('scroll', updateStickyScroll);
+    window.lenisInstance.on('scroll', updateTeamStickyScroll);
   }
 
-  updateStickyScroll();
+  updateTeamStickyScroll();
 }

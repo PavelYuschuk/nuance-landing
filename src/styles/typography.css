@@ -2,7 +2,7 @@
    Typography Setup & Rules (PRD v.1.1)
    ========================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Rajdhani:wght@600;700&family=Sofia+Sans+Semi+Condensed:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Rajdhani:wght@600;700&family=Sofia+Sans+Semi+Condensed:wght@500&display=swap');
 
 body {
   font-family: var(--font-body);

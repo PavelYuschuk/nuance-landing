@@ -9,6 +9,7 @@
 @import './header.css';
 @import './hero.css';
 @import './genesis.css';
+@import './team.css';
 
 /* Global Fixed Background (Persistent Hero Atmosphere across all blocks) */
 .global-bg {

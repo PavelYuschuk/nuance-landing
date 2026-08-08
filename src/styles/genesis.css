@@ -1,10 +1,10 @@
 /* ==========================================
-   3.3 & 3.4 Combined Sticky Scroll Section ("О нас" - История & Механика)
+   3.3 & 3.4 Combined Sticky Scroll Section ("О нас" - 3 Слоя)
    ========================================== */
 
 .about-sticky-section {
   position: relative;
-  height: 200vh; /* 2 layers sticky scroll distance on all devices */
+  height: 300vh; /* 3 layers sticky scroll distance on all devices */
   background: transparent;
 }
 
@@ -14,20 +14,24 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
-  padding-top: calc(var(--header-height) + 10px);
-  padding-bottom: 20px;
+  padding-top: calc(var(--header-height) + 60px);
+  padding-bottom: 24px;
 }
 
 .about-container {
   position: relative;
   z-index: 2;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 /* ==========================================
-   Left-Aligned Top Sub-block: [О нас] & Scaled 2-Segment Tracker Line
+   Left-Aligned Top Sub-block: [О нас] & Scaled 3-Segment Tracker Line
    ========================================== */
 
 .about-header-subblock {
@@ -36,8 +40,8 @@
   align-items: flex-start; /* Aligned strictly to left edge */
   justify-content: flex-start;
   text-align: left;
-  gap: 10px;
-  margin-bottom: 28px;
+  gap: 8px;
+  margin-bottom: 24px; /* Fixed distance from tracker line to top of layer text block */
   width: fit-content; /* Sized precisely to the title width */
 }
 
@@ -54,7 +58,7 @@
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
 }
 
-/* 2-Segment Progress Line scaled relative to [О нас] box width */
+/* 3-Segment Progress Line scaled relative to [О нас] box width */
 .about-progress-tracker {
   display: flex;
   align-items: center;
@@ -79,27 +83,37 @@
 }
 
 /* ==========================================
-   Layer Stack Container & Asymmetrical Transitions
+   Layer Stack Container & Asymmetrical Transitions (3.3 layers-stack)
    ========================================== */
 
-.about-layers-stack {
+.about-layers-stack,
+.layers-stack {
   display: grid;
   grid-template-columns: 1fr;
-  align-items: center;
+  align-items: start; /* Pin all layers strictly to the top edge of the stack */
+  align-content: start;
   position: relative;
-  min-height: 440px;
+  min-height: 460px;
 }
 
-/* Inactive Layer: REXKO / INSTANT disappearance */
+/* Layer Card Frame with White Outline (matching reference design) */
 .about-layer {
   grid-column: 1 / -1;
   grid-row: 1 / -1;
+  align-self: start; /* Pin top edge of layer to Y:0 of layers-stack */
+  width: 100%;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(12px);
   /* Instant disappearing transition (exit) */
   transition: opacity 0.05s ease-out, transform 0.05s ease-out, visibility 0.05s ease-out;
+
+  /* Clean White Outline Frame with Transparent Background */
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 24px;
+  padding: 36px 40px;
 }
 
 /* Active Layer: SLOWER / SMOOTH Fade-In Entrance */
@@ -114,41 +128,49 @@
               visibility 0.75s ease;
 }
 
-/* Align grid columns to the top border */
+/* Align grid columns to start so text block starts at exact same top position for all layers */
 .about-layer .grid-12 {
-  align-items: flex-start;
+  align-items: start;
 }
 
 /* Left Zone: Text Content */
 .genesis-text-block {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   text-align: left;
+  margin-top: 0;
+  padding-top: 0;
+  align-self: start;
 }
 
-/* Subheading for [История] & [МЕХАНИКА] */
+/* Subheading H2 for [Кто мы], [История] & [Механизм] (35px Desktop) */
 .about-sub-title {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 35px; /* Exactly 35px on Desktop */
   font-weight: 600;
   text-transform: uppercase;
   color: #FFFFFF;
-  letter-spacing: 0.08em;
-  margin: 4px 0;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  margin: 0 0 6px 0; /* Zero top margin for strict uniform spacing from H1 */
+  padding-top: 0;
 }
 
+/* Body Paragraph Text (18px Desktop) */
 .genesis-paragraph {
   font-family: var(--font-body);
-  font-size: 0.95rem;
-  line-height: 1.4;
+  font-size: 18px; /* Exactly 18px on Desktop */
+  line-height: 1.45;
   color: var(--color-text-secondary);
+  margin: 0;
 }
 
 .genesis-paragraph.lead {
-  font-size: 1.05rem;
-  line-height: 1.42;
-  color: var(--color-text-primary);
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+  margin: 0;
 }
 
 .genesis-paragraph .text-highlight {
@@ -166,6 +188,7 @@
   border: 1px solid var(--color-border);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  align-self: start; /* Align top edge of image with top of text block */
 }
 
 .genesis-image-block:hover {
@@ -176,7 +199,7 @@
 
 .genesis-image-block img {
   width: 100%;
-  height: clamp(260px, 40vh, 440px);
+  height: clamp(340px, 52vh, 580px); /* Increased height so images are not cropped */
   object-fit: cover;
   object-position: top;
   display: block;
@@ -195,52 +218,132 @@
 }
 
 /* ==========================================
-   Responsive Adaptations for Tablet & Phone (Persistent Layered Sticky Block)
+   Responsive Adaptations for Tablet & Phone
    ========================================== */
 
 /* Tablet Adaptation (max-width: 1024px) */
 @media (max-width: 1024px) {
   .about-sticky-viewport {
-    padding-top: calc(var(--header-height) + 16px);
-    padding-bottom: 16px;
+    padding-top: calc(var(--header-height) + 24px);
+    padding-bottom: 20px;
+    justify-content: flex-start;
+  }
+
+  .about-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .about-layer {
+    padding: 28px 28px;
+    border-radius: 20px;
+  }
+
+  .about-layers-stack,
+  .layers-stack {
+    flex: 1;
+    display: grid;
+    min-height: 0;
+    align-items: start;
+    align-content: start;
+  }
+
+  .about-layer.active {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .about-layer .grid-12 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    height: 100%;
+    align-items: stretch;
+  }
+
+  .about-layer .col-5 {
+    width: 100%;
+    max-width: 100%;
+    flex-shrink: 0;
+  }
+
+  /* Illustration column on Tablet */
+  .about-layer .col-7 {
+    width: 100%;
+    max-width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 0;
   }
 
   .about-header-subblock {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Strict uniform distance to H2 on Tablet */
     gap: 8px;
+    flex-shrink: 0;
   }
 
   .about-main-title {
-    font-size: 2.4rem;
+    font-size: clamp(2.2rem, 5vw, 4rem); /* Equalized to Desktop */
+  }
+
+  .about-sub-title {
+    font-size: 35px; /* Equalized to 35px Desktop font */
+    margin: 0 0 6px 0;
+    padding-top: 0;
   }
 
   .genesis-text-block {
-    gap: 12px;
+    gap: 14px;
+    margin-top: 0;
+    padding-top: 0;
+    flex-shrink: 0;
   }
 
   .genesis-paragraph {
-    font-size: 0.9rem;
-    line-height: 1.38;
+    font-size: 18px; /* Equalized to 18px Desktop font */
+    line-height: 1.45;
   }
 
-  .genesis-paragraph.lead {
-    font-size: 0.98rem;
+  /* Container strictly capped to the height of the image itself */
+  .genesis-image-block {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    align-self: flex-start;
   }
 
   .genesis-image-block img {
-    height: clamp(220px, 32vh, 340px);
+    width: 100%;
+    height: auto;
+    max-height: clamp(260px, 40vh, 460px);
+    object-fit: cover;
+    object-position: top;
+    display: block;
   }
 }
 
 /* Phone / Mobile Adaptation (max-width: 768px) */
 @media (max-width: 768px) {
+  .about-layer {
+    padding: 20px 18px;
+    border-radius: 18px;
+  }
+
   .about-sticky-viewport {
-    padding-top: calc(var(--header-height) + 12px);
-    padding-bottom: 12px;
+    padding-top: calc(var(--header-height) + 24px);
+    padding-bottom: 16px;
+    justify-content: flex-start;
   }
 
   .about-header-subblock {
-    margin-bottom: 14px;
+    margin-bottom: 18px; /* Strict uniform distance to H2 on Phone */
     gap: 6px;
   }
 
@@ -249,45 +352,54 @@
   }
 
   .about-sub-title {
-    font-size: 1rem;
-    margin: 2px 0;
+    font-size: 22px; /* 22px on Phone */
+    margin: 0 0 6px 0;
+    padding-top: 0;
   }
 
   .genesis-text-block {
-    gap: 8px;
+    gap: 10px;
+    margin-top: 0;
+    padding-top: 0;
   }
 
   .genesis-paragraph {
-    font-size: 0.84rem;
-    line-height: 1.35;
-  }
-
-  .genesis-paragraph.lead {
-    font-size: 0.9rem;
-    line-height: 1.35;
+    font-size: 14.5px; /* 14.5px on Phone */
+    line-height: 1.38;
   }
 
   .genesis-image-block img {
-    height: clamp(150px, 24vh, 220px);
+    height: clamp(240px, 35vh, 360px);
   }
 }
 
-/* Small Mobile Adaptation (max-width: 480px) */
+/* Small Mobile Adaptation (max-width: 480px) - Equalized to Phone font sizes */
 @media (max-width: 480px) {
+  .about-layer {
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+
+  .about-header-subblock {
+    margin-bottom: 18px; /* Strict uniform distance to H2 on Small Mobile */
+  }
+
   .about-main-title {
-    font-size: 1.65rem;
+    font-size: 1.9rem; /* Equalized to Phone */
   }
 
   .about-sub-title {
-    font-size: 0.92rem;
+    font-size: 22px; /* Equalized to 22px Phone font */
+    margin: 0 0 6px 0;
+    padding-top: 0;
   }
 
   .genesis-paragraph {
-    font-size: 0.8rem;
-    line-height: 1.32;
+    font-size: 14.5px; /* Equalized to 14.5px Phone font */
+    line-height: 1.38;
   }
 
   .genesis-image-block img {
-    height: clamp(130px, 20vh, 180px);
+    height: clamp(220px, 33vh, 320px);
   }
 }

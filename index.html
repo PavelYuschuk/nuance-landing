@@ -12,14 +12,14 @@
   <!-- Глобальный фоновый слой (сохраняется для всех блоков) -->
   <div class="global-bg" aria-hidden="true">
     <div class="global-bg-gradient"></div>
-    <img src="./assets/images/NUANCE logo.png" alt="" class="global-bg-logo" />
+    <img src="/assets/images/NUANCE logo.png" alt="" class="global-bg-logo" />
   </div>
 
   <!-- 3.1 Header (Глобальная навигация) -->
   <header class="header">
     <div class="container header-container">
       <a href="#" class="header-logo" aria-label="NUANCE Tactical Group">
-        <img src="./assets/images/2_Header.png" alt="NUANCE Logo" />
+        <img src="/assets/images/2_Header.png" alt="NUANCE Logo" />
       </a>
       
       <nav class="header-nav">
@@ -58,61 +58,84 @@
     </div>
   </section>
 
-  <!-- 3.3 & 3.4 Combined Sticky Scroll Section ("О нас" - История & Механика) -->
+  <!-- 3.3 Sticky Scroll Section ("О нас" - 3.3.0 Кто мы, 3.3.1 История, 3.3.2 Механизм) -->
   <section id="genesis" class="about-sticky-section">
     <div class="about-sticky-viewport">
       <div class="container about-container">
         
-        <!-- Центрированный подблок: [О нас] & 2-сегментная линия трекера -->
+        <!-- Левоориентированный подблок: [О нас] & 3-сегментная линия трекера -->
         <div class="about-header-subblock">
           <h1 class="about-main-title">О нас</h1>
           <div class="about-progress-tracker">
             <div class="tracker-segment segment-1 active" data-layer="0"></div>
             <div class="tracker-segment segment-2" data-layer="1"></div>
+            <div class="tracker-segment segment-3" data-layer="2"></div>
           </div>
         </div>
 
-        <!-- Стек слоев (Sticky Scroll Cross-Fade) -->
-        <div class="about-layers-stack">
+        <!-- Стек слоев: 3.3 layers-stack -->
+        <div class="about-layers-stack layers-stack">
           
-          <!-- Слой 1: История (3.3) -->
+          <!-- Слой 0: 3.3.0 Кто мы -->
           <div class="about-layer layer-0 active" data-layer-id="0">
             <div class="grid-12">
               <!-- Левая зона (5 колонок) -->
               <div class="col-5 genesis-text-block">
-                <p class="genesis-paragraph lead">
-                  Мы — <strong class="text-highlight">NUANCE</strong>. Тактическая группа быстрого реагирования. Там, где большинство игроков упирается в шаблонные лобовые штурмы, мы просачиваемся в тыл и ломаем оборону оппонента изнутри.
-                </p>
-
-                <h2 class="about-sub-title">История</h2>
+                <h2 class="about-sub-title">Кто мы</h2>
 
                 <p class="genesis-paragraph">
-                  История NUANCE началась на обломках более крупного комьюнити — S.O.S.I.4. Первоначальный замысел был амбициозным: массированные скоординированные действия, меняющие ход матчей. Но массовость предсказуемо превратилась в неповоротливость и уязвимость. План забуксовал.
+                  Мы — <strong class="text-highlight">NUANCE</strong>. Тактическая группа быстрого реагирования. Там, где большинство игроков упирается в шаблонные лобовые штурмы, мы заходим в глубокий тыл и бьем оттуда, где нас меньше всего ждут.
                 </p>
 
                 <p class="genesis-paragraph">
-                  Из всего состава осталась лишь тройка игроков, осознавших базовое правило: для эффективности нужна хирургическая точность, а не толпа. Так сформировался NUANCE.
+                  Мы не строим иллюзий насчет идеальных стратегий. Наш профиль — асимметричная стратегия и чистая импровизация. Идеальный план всегда рушится о непредвиденный <strong class="text-highlight">НЮАНС</strong>. И именно в этом хаосе мы начинаем навязывать противнику свои правила игры.
                 </p>
               </div>
 
               <!-- Правая зона (7 колонок) -->
               <div class="col-7">
                 <div class="genesis-image-block">
-                  <img src="./assets/images/About. Screen 1.png?v=1749" alt="История NUANCE — S.O.S.I.4 Генезис" loading="eager" />
+                  <img src="/assets/images/About. Screen 0.png" alt="Кто мы — NUANCE Тактическая группа" loading="eager" />
                   <div class="genesis-image-overlay"></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Слой 2: Механика (3.4) -->
+          <!-- Слой 1: 3.3.1 История -->
           <div class="about-layer layer-1" data-layer-id="1">
             <div class="grid-12">
               <!-- Левая зона (5 колонок) -->
               <div class="col-5 genesis-text-block">
-                <h2 class="about-sub-title">МЕХАНИКА</h2>
+                <h2 class="about-sub-title">История</h2>
 
-                <p class="genesis-paragraph lead">
+                <p class="genesis-paragraph">
+                  История <strong class="text-highlight">NUANCE</strong> началась на обломках более крупного комьюнити — S.O.S.I.4. Первоначальный замысел был амбициозным: массированные скоординированные действия, меняющие ход боя. Но массовость предсказуемо превратилась в неповоротливость и уязвимость. План забуксовал.
+                </p>
+
+                <p class="genesis-paragraph">
+                  Из всего состава осталась лишь тройка игроков, осознавших базовое правило: для эффективности нужна хирургическая точность, а не толпа. Так сформировался <strong class="text-highlight">NUANCE</strong>.
+                </p>
+              </div>
+
+              <!-- Правая зона (7 колонок) -->
+              <div class="col-7">
+                <div class="genesis-image-block">
+                  <img src="/assets/images/About. Screen 1.png" alt="История NUANCE — S.O.S.I.4 Генезис" loading="lazy" />
+                  <div class="genesis-image-overlay"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Слой 2: 3.3.2 Механизм -->
+          <div class="about-layer layer-2" data-layer-id="2">
+            <div class="grid-12">
+              <!-- Левая зона (5 колонок) -->
+              <div class="col-5 genesis-text-block">
+                <h2 class="about-sub-title">Механизм</h2>
+
+                <p class="genesis-paragraph">
                   NUANCE функционирует как единый механизм, где нет универсальных бойцов. Архитектура нашего взаимодействия выстроена так, что уязвимость одного перекрывается сильными сторонами другого.
                 </p>
 
@@ -124,8 +147,87 @@
               <!-- Правая зона (7 колонок) -->
               <div class="col-7">
                 <div class="genesis-image-block">
-                  <img src="./assets/images/About. Screen 2.jpg" alt="Механика NUANCE — Единый механизм" loading="lazy" />
+                  <img src="/assets/images/About. Screen 2.jpg" alt="Механизм NUANCE — Единый механизм" loading="lazy" />
                   <div class="genesis-image-overlay"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  <!-- 3.4. Команда Sticky Scroll Section -->
+  <section id="team" class="team-sticky-section">
+    <div class="team-sticky-viewport">
+      <div class="container team-container">
+        
+        <!-- Левоориентированный подблок: [Команда] & 3-сегментный трекер игроков -->
+        <div class="team-header-subblock">
+          <h1 class="team-main-title">Команда</h1>
+          <div class="team-progress-tracker">
+            <div class="team-tracker-segment segment-1 active" data-player="0"></div>
+            <div class="team-tracker-segment segment-2" data-player="1"></div>
+            <div class="team-tracker-segment segment-3" data-player="2"></div>
+          </div>
+        </div>
+
+        <!-- Стек слоев игроков: 3.4 team-layers-stack -->
+        <div class="team-layers-stack">
+          
+          <!-- Игрок 1: Presa4ek (Акцент #C1FF00) -->
+          <div class="team-layer layer-0 active" data-player-id="0">
+            <div class="grid-12">
+              <div class="col-5 team-text-block">
+                <span class="team-player-badge">Игрок #1 // Presa4ek</span>
+                <h2 class="team-player-name">Presa4ek</h2>
+                <p class="team-paragraph">
+                  Тактический лидер и инициатор штурмовых маневров. Специалист по асимметричным прорывам и ломанию линий обороны противника.
+                </p>
+              </div>
+
+              <div class="col-7">
+                <div class="team-image-placeholder">
+                  <span class="placeholder-text">Presa4ek // Иллюстрация (Заглушка)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Игрок 2: Art1zi (Акцент #00E5FF) -->
+          <div class="team-layer layer-1" data-player-id="1">
+            <div class="grid-12">
+              <div class="col-5 team-text-block">
+                <span class="team-player-badge">Игрок #2 // Art1zi</span>
+                <h2 class="team-player-name">Art1zi</h2>
+                <p class="team-paragraph">
+                  Снайпер и мастер огневого контроля на дальних дистанциях. Замыкает уязвимости группы и мгновенно нейтрализует угрозы.
+                </p>
+              </div>
+
+              <div class="col-7">
+                <div class="team-image-placeholder">
+                  <span class="placeholder-text">Art1zi // Иллюстрация (Заглушка)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Игрок 3: Matvi4 (Акцент #FFC107) -->
+          <div class="team-layer layer-2" data-player-id="2">
+            <div class="grid-12">
+              <div class="col-5 team-text-block">
+                <span class="team-player-badge">Игрок #3 // Matvi4</span>
+                <h2 class="team-player-name">Matvi4</h2>
+                <p class="team-paragraph">
+                  Инженер ресурсов и мастер мгновенной адаптации. Вытягивает безнадежные дуэли на чистом характере и непредсказуемом стиле.
+                </p>
+              </div>
+
+              <div class="col-7">
+                <div class="team-image-placeholder">
+                  <span class="placeholder-text">Matvi4 // Иллюстрация (Заглушка)</span>
                 </div>
               </div>
             </div>
@@ -137,6 +239,6 @@
     </div>
   </section>
 
-  <script type="module" src="./src/scripts/main.js"></script>
+  <script type="module" src="/src/scripts/main.js"></script>
 </body>
 </html>
