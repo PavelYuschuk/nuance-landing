@@ -110,11 +110,11 @@
                 <h2 class="about-sub-title">История</h2>
 
                 <p class="genesis-paragraph">
-                  История <strong class="text-highlight">NUANCE</strong> началась на обломках более крупного комьюнити — S.O.S.I.4. Первоначальный замысел был амбициозным: массированные скоординированные действия, меняющие ход боя. Но массовость предсказуемо превратилась в неповоротливость и уязвимость. План забуксовал.
+                  История NUANCE началась на обломках более крупного комьюнити — S.O.S.I.4. Первоначальный замысел был амбициозным: массированные скоординированные действия, меняющие ход боя. Но массовость предсказуемо превратилась в неповоротливость и уязвимость. План забуксовал.
                 </p>
 
                 <p class="genesis-paragraph">
-                  Из всего состава осталась лишь тройка игроков, осознавших базовое правило: для эффективности нужна хирургическая точность, а не толпа. Так сформировался <strong class="text-highlight">NUANCE</strong>.
+                  Из всего состава осталась лишь тройка игроков, осознавших базовое правило: для эффективности нужна хирургическая точность, а не толпа. Так сформировался NUANCE.
                 </p>
               </div>
 
@@ -158,85 +158,103 @@
 
       </div>
     </div>
-  <!-- 3.4. Команда Sticky Scroll Section -->
-  <section id="team" class="team-sticky-section">
-    <div class="team-sticky-viewport">
-      <div class="container team-container">
+  </section>
+
+  <!-- 3.4. Команда (Full-Viewport Snap Scroll Section) -->
+  <section id="team" class="team-snap-section">
+    
+    <!-- Зафиксированное лого "Кольцо" HUD (right: 40px, top: 50%) -->
+    <div class="team-hud-ring" aria-label="HUD Indicator Ring">
+      <svg class="hud-ring-svg" viewBox="0 0 100 100">
+        <!-- Фон кольца -->
+        <circle cx="50" cy="50" r="40" stroke="rgba(255, 255, 255, 0.12)" stroke-width="4" fill="none" />
         
-        <!-- Левоориентированный подблок: [Команда] & 3-сегментный трекер игроков -->
-        <div class="team-header-subblock">
+        <!-- Сегмент 1: Presa4ek (Левая дуга #C1FF00) -->
+        <path class="hud-segment segment-presa4ek active" d="M 50 10 A 40 40 0 0 0 50 90" stroke="rgba(255, 255, 255, 0.25)" stroke-width="5" fill="none" data-player="0" />
+        
+        <!-- Сегмент 2: Art1zi (Верхняя правая дуга #00E5FF) -->
+        <path class="hud-segment segment-art1zi" d="M 50 10 A 40 40 0 0 1 90 50" stroke="rgba(255, 255, 255, 0.25)" stroke-width="5" fill="none" data-player="1" />
+        
+        <!-- Сегмент 3: Matvi4 (Нижняя правая дуга #FFC107) -->
+        <path class="hud-segment segment-matvi4" d="M 90 50 A 40 40 0 0 1 50 90" stroke="rgba(255, 255, 255, 0.25)" stroke-width="5" fill="none" data-player="2" />
+      </svg>
+
+      <!-- Центральный маркер HUD -->
+      <div class="hud-ring-center"></div>
+    </div>
+
+    <!-- Экран 1: Presa4ek (Слева текст 5 кол, справа иллюстрация 7 кол, акцент #C1FF00) -->
+    <div class="team-snap-screen screen-presa4ek" data-player-id="0">
+      <div class="container team-screen-container">
+        
+        <!-- Подсекция с текстом Команда по центру на 1-м месте -->
+        <div class="team-header-block text-center">
           <h1 class="team-main-title">Команда</h1>
-          <div class="team-progress-tracker">
-            <div class="team-tracker-segment segment-1 active" data-player="0"></div>
-            <div class="team-tracker-segment segment-2" data-player="1"></div>
-            <div class="team-tracker-segment segment-3" data-player="2"></div>
-          </div>
         </div>
 
-        <!-- Стек слоев игроков: 3.4 team-layers-stack -->
-        <div class="team-layers-stack">
-          
-          <!-- Игрок 1: Presa4ek (Акцент #C1FF00) -->
-          <div class="team-layer layer-0 active" data-player-id="0">
-            <div class="grid-12">
-              <div class="col-5 team-text-block">
-                <span class="team-player-badge">Игрок #1 // Presa4ek</span>
-                <h2 class="team-player-name">Presa4ek</h2>
-                <p class="team-paragraph">
-                  Тактический лидер и инициатор штурмовых маневров. Специалист по асимметричным прорывам и ломанию линий обороны противника.
-                </p>
-              </div>
-
-              <div class="col-7">
-                <div class="team-image-placeholder">
-                  <span class="placeholder-text">Presa4ek // Иллюстрация (Заглушка)</span>
-                </div>
-              </div>
-            </div>
+        <div class="grid-12">
+          <!-- Слева: Текст (5 колонок) -->
+          <div class="col-5 team-text-block">
+            <h2 class="team-player-name name-presa4ek">Presa4ek</h2>
+            <p class="team-paragraph">
+              Тактический лидер и инициатор штурмовых маневров. Специалист по асимметричным прорывам и ломанию линий обороны противника.
+            </p>
           </div>
 
-          <!-- Игрок 2: Art1zi (Акцент #00E5FF) -->
-          <div class="team-layer layer-1" data-player-id="1">
-            <div class="grid-12">
-              <div class="col-5 team-text-block">
-                <span class="team-player-badge">Игрок #2 // Art1zi</span>
-                <h2 class="team-player-name">Art1zi</h2>
-                <p class="team-paragraph">
-                  Снайпер и мастер огневого контроля на дальних дистанциях. Замыкает уязвимости группы и мгновенно нейтрализует угрозы.
-                </p>
-              </div>
-
-              <div class="col-7">
-                <div class="team-image-placeholder">
-                  <span class="placeholder-text">Art1zi // Иллюстрация (Заглушка)</span>
-                </div>
-              </div>
+          <!-- Справа: Иллюстрация (7 колонок, формат 9:16) -->
+          <div class="col-7">
+            <div class="team-image-placeholder ratio-9-16">
+              <span class="placeholder-text">Presa4ek // Иллюстрация (9:16)</span>
             </div>
           </div>
-
-          <!-- Игрок 3: Matvi4 (Акцент #FFC107) -->
-          <div class="team-layer layer-2" data-player-id="2">
-            <div class="grid-12">
-              <div class="col-5 team-text-block">
-                <span class="team-player-badge">Игрок #3 // Matvi4</span>
-                <h2 class="team-player-name">Matvi4</h2>
-                <p class="team-paragraph">
-                  Инженер ресурсов и мастер мгновенной адаптации. Вытягивает безнадежные дуэли на чистом характере и непредсказуемом стиле.
-                </p>
-              </div>
-
-              <div class="col-7">
-                <div class="team-image-placeholder">
-                  <span class="placeholder-text">Matvi4 // Иллюстрация (Заглушка)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
-
       </div>
     </div>
+
+    <!-- Экран 2: Art1zi (Асимметрия: Слева иллюстрация 6 кол, справа текст 6 кол text-align: right, акцент #00E5FF) -->
+    <div class="team-snap-screen screen-art1zi" data-player-id="1">
+      <div class="container team-screen-container">
+        <div class="grid-12">
+          <!-- Слева: Иллюстрация (6 колонок, формат 9:16) -->
+          <div class="col-6">
+            <div class="team-image-placeholder ratio-9-16">
+              <span class="placeholder-text">Art1zi // Иллюстрация (9:16)</span>
+            </div>
+          </div>
+
+          <!-- Справа: Текст (6 колонок, выравнивание по правому краю) -->
+          <div class="col-6 team-text-block text-right">
+            <h2 class="team-player-name name-art1zi">Art1zi</h2>
+            <p class="team-paragraph">
+              Снайпер и мастер огневого контроля на дальних дистанциях. Замыкает уязвимости группы и мгновенно нейтрализует угрозы.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Экран 3: Matvi4 (Слева текст 5 кол, справа иллюстрация 7 кол, акцент #FFC107) -->
+    <div class="team-snap-screen screen-matvi4" data-player-id="2">
+      <div class="container team-screen-container">
+        <div class="grid-12">
+          <!-- Слева: Текст (5 колонок) -->
+          <div class="col-5 team-text-block">
+            <h2 class="team-player-name name-matvi4">Matvi4</h2>
+            <p class="team-paragraph">
+              Инженер ресурсов и мастер мгновенной адаптации. Вытягивает безнадежные дуэли на чистом характере и непредсказуемом стиле.
+            </p>
+          </div>
+
+          <!-- Справа: Иллюстрация (7 колонок, формат 9:16) -->
+          <div class="col-7">
+            <div class="team-image-placeholder ratio-9-16">
+              <span class="placeholder-text">Matvi4 // Иллюстрация (9:16)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <script type="module" src="/src/scripts/main.js"></script>

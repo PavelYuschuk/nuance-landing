@@ -1,60 +1,59 @@
 /* ==========================================
-   3.4 Команда Sticky Scroll Section
+   3.4 Команда Full-Viewport Snap Scroll Section (PRD v.1.1)
    ========================================== */
 
-.team-sticky-section {
+.team-snap-section {
   position: relative;
-  height: 300vh; /* 3 players sticky scroll distance */
+  width: 100%;
   background: transparent;
 }
 
-.team-sticky-viewport {
-  position: relative; /* Default to normal flow so it cannot stick or overlap section 3.3 */
-  top: 0;
+/* 100vh Full Viewport Snap Screen */
+.team-snap-screen {
+  position: relative;
   height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: hidden;
-  padding-top: calc(var(--header-height) + 60px);
-  padding-bottom: 24px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
+  padding-top: calc(var(--header-height) + 20px);
+  padding-bottom: 20px;
+  background: transparent;
+  border: none; /* No outer card border */
 }
 
-.team-sticky-viewport.visible {
-  position: sticky; /* Only activate sticky behavior when Section 3.4 is reached */
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.team-container {
+.team-screen-container {
   position: relative;
   z-index: 2;
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 }
 
-/* ==========================================
-   Left-Aligned Top Sub-block: [Команда] & Scaled 3-Segment Tracker Line
-   ========================================== */
+.team-snap-screen .grid-12 {
+  align-items: center;
+}
 
-.team-header-subblock {
+/* Left & Right Text Blocks */
+.team-text-block {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+  gap: 16px;
   text-align: left;
-  gap: 8px;
-  margin-bottom: 24px;
-  width: fit-content;
 }
 
-/* Large Title for "Команда" */
+/* Screen 2 Asymmetry: Right-Aligned Text Block */
+.team-text-block.text-right {
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* Centered Section Header: [Команда] */
+.team-header-block {
+  text-align: center;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
 .team-main-title {
   font-family: var(--font-heading);
   font-size: clamp(2.2rem, 5vw, 4rem);
@@ -67,156 +66,49 @@
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
 }
 
-/* 3-Segment Progress Line scaled relative to [Команда] box width */
-.team-progress-tracker {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  height: 3px;
-}
-
-.team-tracker-segment {
-  flex: 1;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.18);
-  border-radius: 2px;
-  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-/* Player Specific Accent Active States */
-.team-tracker-segment[data-player="0"].active {
-  background: var(--color-accent-1); /* Presa4ek #C1FF00 */
-  box-shadow: 0 0 12px var(--color-accent-1), 0 0 4px var(--color-accent-1);
-  transform: scaleY(1.3);
-}
-
-.team-tracker-segment[data-player="1"].active {
-  background: var(--color-accent-2); /* Art1zi #00E5FF */
-  box-shadow: 0 0 12px var(--color-accent-2), 0 0 4px var(--color-accent-2);
-  transform: scaleY(1.3);
-}
-
-.team-tracker-segment[data-player="2"].active {
-  background: var(--color-accent-3); /* Matvi4 #FFC107 */
-  box-shadow: 0 0 12px var(--color-accent-3), 0 0 4px var(--color-accent-3);
-  transform: scaleY(1.3);
-}
-
-/* ==========================================
-   Team Layer Stack Container (3.4 team-layers-stack)
-   ========================================== */
-
-.team-layers-stack {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: start;
-  align-content: start;
-  position: relative;
-  min-height: 460px;
-}
-
-/* Player Layer Card Frame */
-.team-layer {
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
-  align-self: start;
-  width: 100%;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(12px);
-  transition: opacity 0.05s ease-out, transform 0.05s ease-out, visibility 0.05s ease-out;
-
-  /* Transparent Surface with Subtle Outline Frame */
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 24px;
-  padding: 36px 40px;
-}
-
-.team-layer.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: translateY(0);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.75s ease;
-}
-
-.team-layer .grid-12 {
-  align-items: start;
-}
-
-/* Left Zone: Player Text & HUD Info */
-.team-text-block {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  text-align: left;
-  margin-top: 0;
-  padding-top: 0;
-  align-self: start;
-}
-
-.team-player-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  width: fit-content;
-}
-
-/* Player Badge Accents */
-.team-layer[data-player-id="0"] .team-player-badge {
-  background: rgba(193, 255, 0, 0.15);
-  color: var(--color-accent-1);
-  border: 1px solid var(--color-accent-1);
-}
-
-.team-layer[data-player-id="1"] .team-player-badge {
-  background: rgba(0, 229, 255, 0.15);
-  color: var(--color-accent-2);
-  border: 1px solid var(--color-accent-2);
-}
-
-.team-layer[data-player-id="2"] .team-player-badge {
-  background: rgba(255, 193, 7, 0.15);
-  color: var(--color-accent-3);
-  border: 1px solid var(--color-accent-3);
-}
-
+/* Player Names (Direct Accent Colors & Glow Effects without frame) */
 .team-player-name {
   font-family: var(--font-heading);
-  font-size: 35px;
+  font-size: 44px;
   font-weight: 700;
   text-transform: uppercase;
-  color: #FFFFFF;
   letter-spacing: 0.06em;
-  line-height: 1.1;
+  line-height: 1.05;
   margin: 0 0 6px 0;
-  padding-top: 0;
 }
 
+.name-presa4ek {
+  color: var(--color-accent-1); /* #C1FF00 */
+  text-shadow: 0 0 20px rgba(193, 255, 0, 0.5), 0 0 40px rgba(193, 255, 0, 0.25);
+}
+
+.name-art1zi {
+  color: var(--color-accent-2); /* #00E5FF */
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.5), 0 0 40px rgba(0, 229, 255, 0.25);
+}
+
+.name-matvi4 {
+  color: var(--color-accent-3); /* #FFC107 */
+  text-shadow: 0 0 20px rgba(255, 193, 7, 0.5), 0 0 40px rgba(255, 193, 7, 0.25);
+}
+
+/* Paragraphs */
 .team-paragraph {
   font-family: var(--font-body);
   font-size: 18px;
   line-height: 1.45;
   color: var(--color-text-secondary);
   margin: 0;
+  max-width: 540px;
 }
 
-/* Right Zone: Gray Image Placeholder Box */
-.team-image-placeholder {
+/* 9:16 Illustration Format Placeholder */
+.team-image-placeholder.ratio-9-16 {
   position: relative;
-  width: 100%;
-  min-height: 440px;
+  aspect-ratio: 9 / 16;
+  width: min(100%, 360px);
+  height: clamp(340px, 58vh, 600px);
+  margin: 0 auto;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 16px;
@@ -226,98 +118,140 @@
   justify-content: center;
   gap: 12px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.team-image-placeholder:hover {
+.team-image-placeholder.ratio-9-16:hover {
   border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
 .placeholder-text {
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--color-text-secondary);
   text-transform: uppercase;
+  text-align: center;
+  padding: 0 16px;
+}
+
+/* ==========================================
+   Global HUD Ring Indicator (Fixed Right: 40px, Top: 50%)
+   ========================================== */
+
+.team-hud-ring {
+  position: fixed;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.team-hud-ring.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hud-ring-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hud-segment {
+  transition: stroke 0.3s ease, filter 0.3s ease, stroke-width 0.3s ease;
+  cursor: pointer;
+}
+
+/* Active Segment Illuminations (Scroll Spy) */
+.hud-segment.segment-presa4ek.active {
+  stroke: var(--color-accent-1); /* #C1FF00 */
+  stroke-width: 7;
+  filter: drop-shadow(0 0 10px #C1FF00);
+}
+
+.hud-segment.segment-art1zi.active {
+  stroke: var(--color-accent-2); /* #00E5FF */
+  stroke-width: 7;
+  filter: drop-shadow(0 0 10px #00E5FF);
+}
+
+.hud-segment.segment-matvi4.active {
+  stroke: var(--color-accent-3); /* #FFC107 */
+  stroke-width: 7;
+  filter: drop-shadow(0 0 10px #FFC107);
+}
+
+.hud-ring-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
 }
 
 /* Responsive Adaptations */
 @media (max-width: 1024px) {
-  .team-sticky-viewport {
-    padding-top: calc(var(--header-height) + 32px);
-    padding-bottom: 20px;
+  .team-hud-ring {
+    right: 20px;
+    width: 72px;
+    height: 72px;
   }
 
-  .team-layer {
-    padding: 28px 28px;
-    border-radius: 20px;
-  }
-
-  .team-layer .grid-12 {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .team-layer .col-5,
-  .team-layer .col-7 {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .team-image-placeholder {
-    min-height: 320px;
+  .team-image-placeholder.ratio-9-16 {
+    height: clamp(280px, 46vh, 440px);
+    width: min(100%, 280px);
   }
 
   .team-player-name {
-    font-size: 35px;
+    font-size: 32px;
   }
 
   .team-paragraph {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 768px) {
-  .team-sticky-viewport {
-    padding-top: calc(var(--header-height) + 24px);
-    padding-bottom: 16px;
+  .team-hud-ring {
+    display: none; /* Hide HUD ring on mobile to prevent layout clutter */
   }
 
-  .team-layer {
-    padding: 20px 18px;
-    border-radius: 18px;
+  .team-snap-screen .grid-12 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  .team-image-placeholder {
-    min-height: 260px;
+  .team-text-block.text-right {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .team-image-placeholder.ratio-9-16 {
+    height: clamp(220px, 35vh, 340px);
+    width: min(100%, 220px);
   }
 
   .team-player-name {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .team-paragraph {
     font-size: 14.5px;
-  }
-}
-
-@media (max-width: 480px) {
-  .team-layer {
-    padding: 16px 14px;
-    border-radius: 16px;
-  }
-
-  .team-player-name {
-    font-size: 22px;
-  }
-
-  .team-paragraph {
-    font-size: 14.5px;
-  }
-
-  .team-image-placeholder {
-    min-height: 220px;
   }
 }

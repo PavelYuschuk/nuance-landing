@@ -1,55 +1,39 @@
 /* ==========================================
-   Sticky Scroll Logic for Section 3.4 "Команда" (3 Players)
+   Full-Viewport Snap & HUD Ring Indicator (Scroll Spy) for 3.4 "Команда"
    ========================================== */
 
 export function initTeamStickyScroll() {
-  const section = document.querySelector('.team-sticky-section');
-  const layers = document.querySelectorAll('.team-layer');
-  const trackerSegments = document.querySelectorAll('.team-tracker-segment');
-  const viewport = section ? section.querySelector('.team-sticky-viewport') : null;
+  const section = document.querySelector('.team-snap-section');
+  const screens = document.querySelectorAll('.team-snap-screen');
+  const hudRing = document.querySelector('.team-hud-ring');
+  const hudSegments = document.querySelectorAll('.hud-segment');
 
-  if (!section || layers.length === 0 || !viewport) return;
+  if (!section || screens.length === 0) return;
 
-  function updateTeamStickyScroll() {
-    const rect = section.getBoundingClientRect();
-    
-    // Completely isolated: Section 3.4 activates sticky position ONLY when #team reaches viewport top (rect.top <= 0)
-    if (rect.top <= 0) {
-      viewport.classList.add('visible');
+  function updateTeamScrollSpy() {
+    const sectionRect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // Show fixed HUD ring ONLY when user is inside Section 3.4 Team
+    if (sectionRect.top <= windowHeight * 0.5 && sectionRect.bottom >= windowHeight * 0.3) {
+      if (hudRing) hudRing.classList.add('visible');
     } else {
-      viewport.classList.remove('visible');
+      if (hudRing) hudRing.classList.remove('visible');
     }
 
-    const sectionHeight = section.offsetHeight - window.innerHeight;
-    if (sectionHeight <= 0) return;
-
-    // Calculate scroll progress from 0.0 to 1.0 inside 300vh sticky section
-    const currentScroll = -rect.top;
-    const progress = Math.max(0, Math.min(1, currentScroll / sectionHeight));
-
-    // 3 player layers: 
-    // Player 0 (Presa4ek) for 0 <= progress < 0.333
-    // Player 1 (Art1zi) for 0.333 <= progress < 0.666
-    // Player 2 (Matvi4) for 0.666 <= progress <= 1.0
+    // Determine active screen using Intersection / center scroll position
     let activeIndex = 0;
-    if (progress >= 0.666) {
-      activeIndex = 2;
-    } else if (progress >= 0.333) {
-      activeIndex = 1;
-    } else {
-      activeIndex = 0;
-    }
-
-    layers.forEach((layer, idx) => {
-      if (idx === activeIndex) {
-        layer.classList.add('active');
-      } else {
-        layer.classList.remove('active');
+    screens.forEach((screen, idx) => {
+      const rect = screen.getBoundingClientRect();
+      if (rect.top <= windowHeight * 0.5 && rect.bottom >= windowHeight * 0.5) {
+        activeIndex = idx;
       }
     });
 
-    trackerSegments.forEach((segment, idx) => {
-      if (idx === activeIndex) {
+    // Update active state on HUD SVG ring segments
+    hudSegments.forEach((segment) => {
+      const playerAttr = parseInt(segment.getAttribute('data-player'), 10);
+      if (playerAttr === activeIndex) {
         segment.classList.add('active');
       } else {
         segment.classList.remove('active');
@@ -57,12 +41,23 @@ export function initTeamStickyScroll() {
     });
   }
 
-  window.addEventListener('scroll', updateTeamStickyScroll, { passive: true });
-  window.addEventListener('resize', updateTeamStickyScroll, { passive: true });
+  // Click on HUD ring segment scrolls to the chosen player screen
+  hudSegments.forEach((segment) => {
+    segment.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const playerAttr = parseInt(segment.getAttribute('data-player'), 10);
+      if (screens[playerAttr]) {
+        screens[playerAttr].scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  window.addEventListener('scroll', updateTeamScrollSpy, { passive: true });
+  window.addEventListener('resize', updateTeamScrollSpy, { passive: true });
 
   if (window.lenisInstance) {
-    window.lenisInstance.on('scroll', updateTeamStickyScroll);
+    window.lenisInstance.on('scroll', updateTeamScrollSpy);
   }
 
-  updateTeamStickyScroll();
+  updateTeamScrollSpy();
 }
