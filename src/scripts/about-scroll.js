@@ -1,15 +1,58 @@
 /* ==========================================
-   Sticky Scroll Logic for Section 3.3 "О нас" (3 Layers)
+   TASK-004 & TASK-052: Discrete Step Progress Scroll Engine & Synchronous Logo Exit
    ========================================== */
 
 export function initAboutStickyScroll() {
   const section = document.querySelector('.about-sticky-section');
   const layers = document.querySelectorAll('.about-layer');
-  const trackerSegments = document.querySelectorAll('.tracker-segment');
+  const progressFill = document.querySelector('.about-progress-fill');
+  const globalBgLogo = document.querySelector('.global-bg-logo');
 
   if (!section || layers.length === 0) return;
 
+  // Снятие CSS-анимации после завершения стартового интро, чтобы JS свободно управлял transform:
+  if (globalBgLogo) {
+    globalBgLogo.addEventListener('animationend', () => {
+      globalBgLogo.style.animation = 'none';
+    }, { once: true });
+  }
+
+  function handleLogoExitKinematics() {
+    if (!globalBgLogo) return;
+
+    const rect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const isMobile = window.innerWidth <= 1024;
+
+    // 1. Пока секция 3.3 активна или пользователь выше нее (rect.bottom >= windowHeight):
+    // Логотип строго зафиксирован на штатной позиции
+    if (rect.bottom >= windowHeight) {
+      globalBgLogo.style.transform = isMobile ? 'translate(-50%, -50%)' : 'translateY(-50%)';
+      globalBgLogo.style.opacity = isMobile ? '0.35' : '1';
+      globalBgLogo.style.visibility = 'visible';
+    } 
+    // 2. Секция 3.3 завершила показ слоев и уходит вверх, уступая место Секции 3.4 (rect.bottom < windowHeight):
+    // Логотип непрерывно и плавно сдвигается вверх ровно на ту же величину скролла:
+    else {
+      globalBgLogo.style.animation = 'none';
+      const exitOffset = windowHeight - rect.bottom; // Дистанция ухода секции
+      
+      globalBgLogo.style.transform = isMobile
+        ? `translate(-50%, calc(-50% - ${exitOffset}px))`
+        : `translateY(calc(-50% - ${exitOffset}px))`;
+
+      // Логотип скрывается только тогда, когда он физически полностью улетел за верхний край экрана
+      if (exitOffset > windowHeight * 1.5) {
+        globalBgLogo.style.visibility = 'hidden';
+      } else {
+        globalBgLogo.style.visibility = 'visible';
+      }
+    }
+  }
+
   function updateStickyScroll() {
+    handleLogoExitKinematics();
+
     const rect = section.getBoundingClientRect();
     const sectionHeight = section.offsetHeight - window.innerHeight;
     
@@ -19,10 +62,10 @@ export function initAboutStickyScroll() {
     const currentScroll = -rect.top;
     const progress = Math.max(0, Math.min(1, currentScroll / sectionHeight));
 
-    // 3 layers: 
-    // Layer 0 (3.3.0 Кто мы) for 0 <= progress < 0.333
-    // Layer 1 (3.3.1 История) for 0.333 <= progress < 0.666
-    // Layer 2 (3.3.2 Механизм) for 0.666 <= progress <= 1.0
+    // 3 layers:
+    // Layer 0 (0% - 33.3%) ➔ 33.33% fill
+    // Layer 1 (33.3% - 66.6%) ➔ 66.66% fill
+    // Layer 2 (66.6% - 100%) ➔ 100% fill
     let activeIndex = 0;
     if (progress >= 0.666) {
       activeIndex = 2;
@@ -32,6 +75,12 @@ export function initAboutStickyScroll() {
       activeIndex = 0;
     }
 
+    // Step-based discrete progress bar fill percentage
+    if (progressFill) {
+      const fillPercent = ((activeIndex + 1) / layers.length) * 100;
+      progressFill.style.width = `${fillPercent}%`;
+    }
+
     layers.forEach((layer, idx) => {
       if (idx === activeIndex) {
         layer.classList.add('active');
@@ -39,22 +88,10 @@ export function initAboutStickyScroll() {
         layer.classList.remove('active');
       }
     });
-
-    trackerSegments.forEach((segment, idx) => {
-      if (idx === activeIndex) {
-        segment.classList.add('active');
-      } else {
-        segment.classList.remove('active');
-      }
-    });
   }
 
   window.addEventListener('scroll', updateStickyScroll, { passive: true });
   window.addEventListener('resize', updateStickyScroll, { passive: true });
-
-  if (window.lenisInstance) {
-    window.lenisInstance.on('scroll', updateStickyScroll);
-  }
 
   updateStickyScroll();
 }

@@ -1,5 +1,5 @@
 /* ==========================================
-   Engineering Grid Architecture (PRD v.1.1)
+   TASK-002: Global Layout Grid System Refactor (Design Spec)
    ========================================== */
 
 .container {
@@ -18,42 +18,74 @@
   align-items: center;
 }
 
-/* Specific Column Utilities */
-.col-5 {
-  grid-column: span 5;
-}
+/* ==========================================
+   2.3 Column Class Matrix (Desktop 12-Column Base)
+   ========================================== */
+.col-1  { grid-column: span 1; }
+.col-2  { grid-column: span 2; }
+.col-3  { grid-column: span 3; }
+.col-4  { grid-column: span 4; }
+.col-5  { grid-column: span 5; }
+.col-6  { grid-column: span 6; }
+.col-7  { grid-column: span 7; }
+.col-8  { grid-column: span 8; }
+.col-9  { grid-column: span 9; }
+.col-10 { grid-column: span 10; }
+.col-11 { grid-column: span 11; }
+.col-12 { grid-column: span 12; }
 
-.col-7 {
-  grid-column: span 7;
-}
-
-.col-6 {
-  grid-column: span 6;
-}
-
-.col-12 {
-  grid-column: span 12;
-}
-
-/* Tablet Grid Breakdown (max-width: 1024px) */
+/* ==========================================
+   Tablet Overrides (@media (max-width: 1024px)) — 8-Column Grid
+   ========================================== */
 @media (max-width: 1024px) {
-  .col-5, .col-7 {
-    grid-column: span 4; /* Equal 4+4 split in 8-col grid for Team section */
+  .col-5,
+  .col-7 {
+    grid-column: span 4; /* Equal 4/4 split */
   }
-  
+
   .col-6 {
-    grid-column: span 8;
+    grid-column: span 8; /* 100% width on tablet */
+  }
+
+  .col-4,
+  .col-8 {
+    grid-column: span 8; /* Single stack on tablet */
   }
 }
 
-/* Mobile Grid Breakdown (max-width: 768px) */
+/* ==========================================
+   Mobile Overrides (@media (max-width: 768px)) — 4-Column / Single Stack Grid
+   ========================================== */
 @media (max-width: 768px) {
   .grid-12 {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
   }
-  
-  .col-5, .col-6, .col-7, .col-12 {
-    grid-column: span 1;
+
+  .col-1,
+  .col-2,
+  .col-3,
+  .col-4,
+  .col-5,
+  .col-6,
+  .col-7,
+  .col-8,
+  .col-9,
+  .col-10,
+  .col-11,
+  .col-12 {
+    grid-column: span 4; /* Full 100% width on mobile */
   }
+}
+
+/* ==========================================
+   2.4 Engineering HUD Debug Overlay
+   ========================================== */
+.grid-debug-overlay {
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 229, 255, 0.05) var(--grid-gap),
+    transparent var(--grid-gap)
+  );
+  background-size: calc((100% + var(--grid-gap)) / var(--grid-columns)) 100%;
 }

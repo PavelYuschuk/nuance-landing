@@ -1,0 +1,234 @@
+/* ==========================================
+   TASK-022: Section 3.7. Footer / Подвал HUD Spec
+   ========================================== */
+
+footer.footer {
+  width: 100%;
+  padding: 48px 0 32px 0;
+  position: relative;
+  z-index: 10;
+  background: rgba(20, 28, 41, 0.65);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+/* Column Title */
+.footer-col-title {
+  font-family: var(--font-heading); /* Rajdhani 700 */
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+
+/* Column 1: Brand & Copyright */
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-logo {
+  height: 28px;
+  width: auto;
+  margin-bottom: 16px;
+  object-fit: contain;
+}
+
+.footer-copyright {
+  font-family: var(--font-body); /* JetBrains Mono 400 */
+  font-size: 0.75rem; /* 12px */
+  color: #888888;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footer-disclaimer {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: #666666;
+  margin-top: 4px;
+}
+
+/* Column 2: Quick Navigation */
+.footer-nav-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-nav-link {
+  font-family: var(--font-body); /* JetBrains Mono 400 */
+  font-size: 0.82rem;
+  color: #888888;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  transition: color 0.2s ease, transform 0.2s ease, padding-left 0.2s ease;
+}
+
+.footer-nav-link:hover {
+  color: #FFFFFF;
+  padding-left: 4px;
+}
+
+/* Column 3: Tactical System Status Metadata */
+.footer-meta-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.meta-item {
+  font-family: var(--font-body); /* JetBrains Mono 400 */
+  font-size: 0.8rem;
+  color: #888888;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.server-dot {
+  width: 6px;
+  height: 6px;
+  background: #C1FF00;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #C1FF00;
+}
+
+/* Interactive Scroll To Top Button */
+.btn-scroll-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: rgba(15, 15, 15, 0.6);
+  border: 1px solid rgba(39, 53, 77, 0.6);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.btn-scroll-top:hover {
+  border-color: #00E5FF;
+  color: #00E5FF;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+  background: rgba(20, 28, 41, 0.9);
+}
+
+.btn-scroll-top .top-arrow {
+  font-size: 0.85rem;
+  transition: transform 0.3s ease;
+}
+
+.btn-scroll-top:hover .top-arrow {
+  transform: translateY(-2px);
+}
+
+/* Responsive Footer Breakdown */
+@media (max-width: 1024px) {
+  footer.footer {
+    padding: 40px 0 28px 0;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  footer.footer {
+    padding: 36px 0 24px 0;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* =========================================================
+   TASK-038: 1. FULL HD СТАНДАРТ (1920 × 1080 px):
+   ========================================================= */
+@media (min-width: 1600px) and (max-width: 2048px) {
+  footer.footer {
+    padding: 48px 0 36px 0;
+  }
+
+  .footer-col-title {
+    font-size: 0.9rem;
+  }
+
+  .footer-copyright,
+  .footer-disclaimer,
+  .footer-nav-link,
+  .meta-item {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+}
+
+/* =========================================================
+   TASK-038: 2. 2K / QHD СТАНДАРТ (2560 × 1440 px):
+   ========================================================= */
+@media (min-width: 2049px) {
+  footer.footer {
+    padding: 64px 0 44px 0;
+  }
+
+  .footer-logo {
+    height: 34px;
+  }
+
+  .footer-col-title {
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+
+  .footer-copyright,
+  .footer-disclaimer,
+  .footer-nav-link,
+  .meta-item {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .btn-scroll-top {
+    font-size: 0.85rem;
+    padding: 10px 20px;
+  }
+}

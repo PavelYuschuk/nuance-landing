@@ -1,0 +1,352 @@
+/* ==========================================
+   TASK-023: Section 3.5. Doctrine Spec
+   ========================================== */
+
+/* TASK-078: Единая посадка секции от верхнего горизонта */
+.doctrine-section {
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: calc(var(--header-height) + 36px); /* Ровно 100px как в Genesis и Team */
+  padding-bottom: 24px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  z-index: 2;
+}
+
+/* TASK-076: Верхний градиентный шлейф Секции Доктрина для бесшовного стыка с Секцией 3.4 */
+.doctrine-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(145px, 18vh, 235px);
+  background: linear-gradient(
+    to bottom,
+    #0F0F0F 0%,
+    rgba(15, 15, 15, 0.98) 14%,
+    rgba(15, 15, 15, 0.90) 28%,
+    rgba(15, 15, 15, 0.72) 46%,
+    rgba(15, 15, 15, 0.46) 64%,
+    rgba(15, 15, 15, 0.22) 80%,
+    rgba(15, 15, 15, 0.06) 92%,
+    rgba(15, 15, 15, 0) 100%
+  );
+  pointer-events: none;
+  z-index: 1; /* Под карточками доктрины, над базовым фоном */
+}
+
+/* =========================================================
+   TASK-057: Центральный Фоновый Логотип Секции Доктрина
+   ========================================================= */
+
+/* Обертка центрированного логотипа */
+.doctrine-bg-logo-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1; /* Под карточками доктрины */
+  overflow: hidden;
+}
+
+/* Фоновый логотип: масштабируемый, центрированный, с тактическим свечением */
+.doctrine-bg-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  /* Масштаб крупного плана, аналогичный Hero (Hero Split Grid 2x) */
+  width: clamp(600px, 55vw, 1050px);
+  height: auto;
+  max-width: 90vw;
+  
+  /* Фоновая деликатная прозрачность: логотип читается как водяной знак */
+  opacity: 0.32;
+  
+  /* Фирменная аура Hero: бирюзовый + неоново-лаймовый светорассеиватель */
+  filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.20))
+          drop-shadow(0 0 45px rgba(193, 255, 0, 0.14));
+          
+  user-select: none;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Контейнер контента поднят над логотипом */
+.doctrine-section .container,
+.doctrine-container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Левоориентированный подблок: Доктрина (TASK-040, TASK-047, TASK-078 Spec) */
+.doctrine-header-subblock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 28px; /* Синхронизировано: 28px как в Genesis и Team (TASK-078) */
+  min-height: 60px;    /* Синхронизировано: 60px как в Genesis и Team (TASK-078) */
+  width: 100%;
+}
+
+/* Заголовок "Доктрина" */
+.doctrine-main-title,
+.doctrine-header-subblock .section-main-title {
+  font-family: 'Bounded', sans-serif;
+  font-weight: 700;
+  font-size: 45px; /* Строго 45px */
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.12);
+}
+
+.doctrine-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.doctrine-card {
+  height: clamp(420px, 55vh, 520px);
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid rgba(39, 53, 77, 0.6);
+  background: rgba(20, 28, 41, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.doctrine-card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: linear-gradient(135deg, #141C29 0%, #1A2230 50%, #0F0F0F 100%);
+  transform: scale(1.18);
+  filter: blur(0px) brightness(0.85);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+}
+
+.doctrine-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(15, 15, 15, 0.95) 0%, rgba(15, 15, 15, 0.4) 45%, transparent 100%);
+  transition: background 0.5s ease;
+}
+
+.doctrine-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 32px 28px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.doctrine-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+  transform: translateY(0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+.doctrine-card-text {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #888888;
+  margin-top: 12px;
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(20px);
+  overflow: hidden;
+  transition: opacity 0.5s ease 0.1s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, max-height 0.5s ease;
+}
+
+/* =========================================================
+   ИНТЕРАКТИВНЫЙ HOVER-ПАТТЕРН:
+   ========================================================= */
+
+/* 1. Карточка увеличивается в масштабе (Zoom In) */
+.doctrine-card:hover {
+  transform: scale(1.04);
+  border-color: rgba(0, 229, 255, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 229, 255, 0.15);
+}
+
+/* 2. Иллюстрация делает Zoom Out (с 1.18 до 1.0) */
+/* 3. Иллюстрация покрывается блюр-эффектом и затемняется */
+.doctrine-card:hover .doctrine-card-bg {
+  transform: scale(1.0);
+  filter: blur(8px) brightness(0.5);
+}
+
+/* Затемняющий оверлей усиливается */
+.doctrine-card:hover .doctrine-card-overlay {
+  background: linear-gradient(to top, rgba(15, 15, 15, 0.98) 0%, rgba(15, 15, 15, 0.7) 60%, rgba(15, 15, 15, 0.3) 100%);
+}
+
+/* 4. Заголовок движется снизу вверх */
+.doctrine-card:hover .doctrine-card-title {
+  transform: translateY(-8px);
+  color: var(--color-accent-2, #00E5FF);
+}
+
+/* 5. За заголовком проявляется текст доктрины */
+.doctrine-card:hover .doctrine-card-text {
+  opacity: 1;
+  max-height: 180px;
+  transform: translateY(0);
+}
+
+/* Responsive Adaptations */
+@media (max-width: 1024px) {
+  .doctrine-bg-logo {
+    width: clamp(420px, 75vw, 680px);
+    opacity: 0.22; /* На мобильных и планшетах логотип тише, чтобы не шуметь под карточками */
+  }
+
+  .doctrine-section {
+    padding: 60px 0;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .doctrine-cards-grid {
+    gap: 20px;
+  }
+
+  .doctrine-card {
+    height: 440px;
+  }
+
+  .doctrine-card-content {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .doctrine-section {
+    padding: 80px 0;
+    height: auto;
+    min-height: auto;
+  }
+
+  .doctrine-header {
+    margin-bottom: 32px;
+  }
+
+  .doctrine-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .doctrine-card {
+    height: 380px;
+  }
+
+  .doctrine-card-title {
+    font-size: 1.35rem;
+  }
+}
+
+/* =========================================================
+   TASK-038: 1. FULL HD СТАНДАРТ (1920 × 1080 px):
+   ========================================================= */
+@media (min-width: 1600px) and (max-width: 2048px) {
+  .doctrine-card {
+    height: clamp(480px, 55vh, 560px);
+  }
+
+  .doctrine-card-title {
+    font-size: 1.6rem;
+  }
+
+  .doctrine-card-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+/* =========================================================
+   TASK-038: 2. 2K / QHD СТАНДАРТ (2560 × 1440 px):
+   ========================================================= */
+@media (min-width: 2049px) {
+  .doctrine-bg-logo {
+    width: clamp(1000px, 50vw, 1400px);
+  }
+
+  .doctrine-header,
+  .doctrine-header-subblock {
+    margin-bottom: 48px;
+    max-width: 380px;
+  }
+
+  .doctrine-title {
+    font-size: 3.5rem;
+  }
+
+  .doctrine-cards-grid {
+    gap: 40px;
+  }
+
+  .doctrine-card {
+    height: clamp(580px, 56vh, 680px);
+    border-radius: 20px;
+  }
+
+  .doctrine-card-title {
+    font-size: 2rem;
+  }
+
+  .doctrine-card-text {
+    font-size: 1.2rem;
+    line-height: 1.65;
+  }
+
+  .doctrine-card:hover .doctrine-card-text {
+    max-height: 240px;
+  }
+}

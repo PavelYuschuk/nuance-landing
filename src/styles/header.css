@@ -1,35 +1,37 @@
 /* ==========================================
-   3.1 Header Component Styles (Floating Capsule Glassmorphism)
+   TASK-001: Full-Width Glass Header Layout Refactor (Design Spec)
    ========================================== */
 
 .header {
   position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(92%, 1280px);
-  height: 64px;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: var(--header-height, 64px);
   z-index: 1000;
-  background: rgba(20, 28, 41, 0.08);
+  background: rgba(15, 15, 15, 0.7);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 100px;
-  box-shadow: 
-    0 12px 32px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-bottom: 1px solid rgba(39, 53, 77, 0.4);
+  border-radius: 0px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header-container {
+  width: 100%;
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
   height: 100%;
-  padding: 0 24px;
+  padding: 0 32px;
 }
 
-/* Logo Left */
+/* Logo Left (Pinned to left edge) */
 .header-logo {
   display: flex;
   align-items: center;
@@ -37,7 +39,7 @@
 }
 
 .header-logo img {
-  height: 42px;
+  height: 40px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 10px rgba(193, 255, 0, 0.3));
@@ -45,91 +47,283 @@
 }
 
 .header-logo:hover img {
-  transform: scale(1.05);
+  transform: scale(1.04);
   filter: drop-shadow(0 0 14px rgba(193, 255, 0, 0.5));
 }
 
-/* Nav Links Center */
+/* =========================================================
+   Header Nav: Сегменты на нижней границе хедера (TASK-061)
+   ========================================================= */
+
+/* Контейнер навигации занимает 100% высоты хедера */
 .header-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 36px;
+  height: 100%; /* Растягивается до нижнего края хедера */
 }
 
 .nav-link {
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  font-weight: 800;
+  font-family: 'Bounded', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-text-secondary);
-  letter-spacing: 0.06em;
+  color: #FFFFFF;
+  opacity: 0.75;
   position: relative;
-  padding: 6px 0;
-  transition: color 0.3s ease;
+  
+  /* Полная высота и идеальное центрирование текста: */
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px; /* Небольшой горизонтальный буфер для ширины сегмента */
+  
+  transition: opacity 0.25s ease, color 0.25s ease;
 }
 
+/* Световой сегмент на нижней границе хедера */
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: -1px; /* Строго на физической линии border-bottom хедера */
+  left: 50%;
+  transform: translateX(-50%);
   width: 0;
   height: 2px;
   background: #FFFFFF;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
-  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
 }
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--color-text-primary);
+  opacity: 1;
+  color: #FFFFFF;
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.4);
 }
 
+/* Раскрытие сегмента от центра к краям кнопки */
 .nav-link:hover::after,
 .nav-link.active::after {
   width: 100%;
 }
 
-/* Right Controls (Language Switcher & Burger) */
+/* Right Controls (Language Switcher & Mobile Toggle) */
 .header-controls {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
+/* =========================================================
+   TASK-065: Custom Dropdown Language Switcher (UK / EN / RU)
+   ========================================================= */
+
+/* Контейнер-обертка дропдауна */
 .lang-switcher {
+  position: relative;
+  display: inline-block;
+  user-select: none;
+}
+
+/* Кнопка-триггер: полностью прозрачный фон, тонкий бордер */
+.lang-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: border-color 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+              background 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  outline: none;
+}
+
+/* Ховер состояние триггера */
+.lang-trigger:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+}
+
+/* Состояние при открытом дропдауне */
+.lang-switcher.is-open .lang-trigger {
+  border-color: rgba(0, 240, 255, 0.6);
+  background: rgba(0, 240, 255, 0.06);
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.15);
+}
+
+/* Иконка глобуса */
+.lang-globe-icon {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.2s ease;
+}
+
+.lang-trigger:hover .lang-globe-icon,
+.lang-switcher.is-open .lang-globe-icon {
+  color: #00F0FF;
+}
+
+/* Текстовая метка языка */
+.lang-current-label {
+  white-space: nowrap;
+  font-family: 'Bounded', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+/* Иконка шеврона с плавной анимацией вращения */
+.lang-chevron-icon {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
+}
+
+.lang-switcher.is-open .lang-chevron-icon {
+  transform: rotate(180deg);
+  color: #00F0FF;
+}
+
+/* Выпадающий список (Glassmorphic Dropdown идентично 3.1 Header) */
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 165px;
+  
+  /* Точные параметры матового стекла Header (строки 13-19 header.css): */
+  background: rgba(15, 15, 15, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(39, 53, 77, 0.5);
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 
+              0 2px 8px rgba(0, 0, 0, 0.3);
+  
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 1000;
+  
+  /* Анимация появления */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.22s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.22s cubic-bezier(0.25, 1, 0.5, 1),
+              visibility 0.22s;
+}
+
+/* Видимое состояние меню при открытии */
+.lang-switcher.is-open .lang-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Элемент списка (кнопка языка) */
+.lang-dropdown-item {
   display: flex;
   align-items: center;
-  background: rgba(15, 15, 15, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 100px;
-  padding: 3px 8px;
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: var(--color-text-secondary);
-}
-
-.lang-btn {
-  background: none;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  background: transparent;
   border: none;
-  color: var(--color-text-secondary);
+  border-radius: 6px;
   cursor: pointer;
-  padding: 2px 8px;
-  border-radius: 100px;
-  font-family: inherit;
-  font-size: inherit;
-  transition: color 0.2s ease, background 0.2s ease;
+  text-align: left;
+  outline: none;
+  transition: background 0.18s ease, color 0.18s ease;
 }
 
-.lang-btn.active {
-  color: var(--color-text-primary);
-  background: rgba(255, 255, 255, 0.15);
-  font-weight: bold;
+.lang-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.lang-divider {
-  color: rgba(255, 255, 255, 0.2);
-  user-select: none;
+.lang-dropdown-item.active {
+  background: rgba(0, 240, 255, 0.08);
+}
+
+/* Круглый радио-индикатор */
+.lang-radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Внутренняя точка активного радио-баттона */
+.lang-radio::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00F0FF;
+  opacity: 0;
+  transform: scale(0.4);
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.8);
+  transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Ховер состояние элемента списка */
+.lang-dropdown-item:hover .lang-radio {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.lang-dropdown-item:hover .lang-text {
+  color: #FFFFFF;
+}
+
+/* Активное состояние элемента списка */
+.lang-dropdown-item.active .lang-radio {
+  border-color: #00F0FF;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.35);
+}
+
+.lang-dropdown-item.active .lang-radio::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Текст языка внутри дропдауна */
+.lang-text {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+  transition: color 0.18s ease;
+}
+
+.lang-dropdown-item.active .lang-text {
+  color: #FFFFFF;
+  font-weight: 600;
 }
 
 /* Mobile Hamburger Toggle */
@@ -155,47 +349,55 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Responsive Header */
-@media (max-width: 900px) {
-  .header {
-    top: 12px;
-    width: min(94%, 1280px);
-    height: 56px;
+/* Responsive Adaptations */
+@media (max-width: 1024px) {
+  .header-container {
+    padding: 0 24px;
   }
+}
 
+@media (max-width: 768px) {
   .header-container {
     padding: 0 16px;
   }
 
   .header-nav {
+    height: auto; /* Сброс 100% высоты в шторке (TASK-061) */
     position: fixed;
-    top: 76px;
+    top: 64px;
     left: 50%;
     transform: translate(-50%, -20px);
-    width: min(94%, 1280px);
-    background: rgba(15, 15, 15, 0.94);
+    width: 100%;
+    background: rgba(15, 15, 15, 0.96);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 24px;
-    padding: 32px;
+    border-bottom: 1px solid rgba(39, 53, 77, 0.4);
+    padding: 28px 24px;
     flex-direction: column;
     justify-content: center;
-    gap: 28px;
+    gap: 24px;
     opacity: 0;
     visibility: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
     transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .nav-link {
+    height: auto;
+    display: block;
+    padding: 10px 0;
+  }
+
+  .nav-link::after {
+    bottom: 0; /* Обычное нижнее подчеркивание в мобильном списке */
+    left: 0;
+    transform: none;
   }
 
   .header-nav.open {
     transform: translate(-50%, 0);
     opacity: 1;
     visibility: visible;
-  }
-
-  .nav-link {
-    font-size: 1.2rem;
   }
 
   .mobile-toggle {
@@ -212,5 +414,81 @@
 
   .mobile-toggle.active span:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+/* =========================================================
+   TASK-038: 1. FULL HD СТАНДАРТ (1920 × 1080 px):
+   ========================================================= */
+@media (min-width: 1600px) and (max-width: 2048px) {
+  .header {
+    height: 72px;
+  }
+
+  .header-container {
+    padding: 0 48px;
+  }
+
+  .header-nav {
+    gap: 36px;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+  }
+}
+
+/* =========================================================
+   TASK-038: 2. 2K / QHD СТАНДАРТ (2560 × 1440 px):
+   ========================================================= */
+@media (min-width: 2049px) {
+  .header {
+    height: 84px;
+  }
+
+  .header-container {
+    padding: 0 64px;
+  }
+
+  .header-logo img {
+    height: 36px;
+  }
+
+  .header-nav {
+    gap: 48px;
+  }
+
+  .nav-link {
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+  }
+
+  .lang-trigger {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    gap: 10px;
+  }
+
+  .lang-globe-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .lang-current-label {
+    font-size: 0.92rem;
+  }
+
+  .lang-dropdown {
+    min-width: 180px;
+    padding: 8px;
+    gap: 4px;
+  }
+
+  .lang-dropdown-item {
+    padding: 10px 14px;
+  }
+
+  .lang-text {
+    font-size: 0.95rem;
   }
 }

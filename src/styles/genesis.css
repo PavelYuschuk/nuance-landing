@@ -1,23 +1,87 @@
 /* ==========================================
-   3.3 & 3.4 Combined Sticky Scroll Section ("О нас" - 3 Слоя)
+   TASK-004: Section 3.3. Genesis / About (Design Spec)
    ========================================== */
 
 .about-sticky-section {
   position: relative;
-  height: 300vh; /* 3 layers sticky scroll distance on all devices */
+  z-index: 3; /* Приподнята над Hero (z-index: 2) - TASK-059 */
+  height: 300vh; /* 3 layers sticky scroll distance */
   background: transparent;
 }
 
+/* =========================================================
+   КАЛИБРОВАННЫЙ РЕЗКИЙ ГРАДИЕНТНЫЙ БЛЮР (TASK-035)
+   ========================================================= */
+
+/* Слой градиентного размытия, плавно нарастающего от 0% до 100% */
+.about-sticky-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+
+  /* Плотность размытия */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  /* Компактный и резкий градиентный переход: всего 70px */
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0.15) 15px,
+    rgba(0, 0, 0, 0.85) 50px,
+    rgba(0, 0, 0, 1) 70px,
+    rgba(0, 0, 0, 1) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0.15) 15px,
+    rgba(0, 0, 0, 0.85) 50px,
+    rgba(0, 0, 0, 1) 70px,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+/* Контент секции приподнят над слоем градиентного блюра */
 .about-sticky-viewport {
   position: sticky;
   top: 0;
   height: 100vh;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   overflow: hidden;
-  padding-top: calc(var(--header-height) + 60px);
+  padding-top: calc(var(--header-height) + 36px);
   padding-bottom: 24px;
+}
+
+/* =========================================================
+   TASK-068: Нижний градиентный шлейф Секции 3.3 (сокращен на 35%)
+   ========================================================= */
+.about-sticky-viewport::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(105px, 14vh, 180px); /* Сокращено с clamp(160px, 22vh, 280px) */
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 15, 15, 0) 0%,
+    rgba(15, 15, 15, 0.08) 20%,
+    rgba(15, 15, 15, 0.32) 45%,
+    rgba(15, 15, 15, 0.68) 70%,
+    rgba(15, 15, 15, 0.92) 88%,
+    #0F0F0F 100%
+  );
+  pointer-events: none;
+  z-index: 3; /* Деликатно виньетирует нижний край перед наездом Секции 3.4 */
 }
 
 .about-container {
@@ -30,110 +94,105 @@
   justify-content: flex-start;
 }
 
-/* ==========================================
-   Left-Aligned Top Sub-block: [О нас] & Scaled 3-Segment Tracker Line
-   ========================================== */
-
+/* 2.2 Header Subblock: Left-aligned to col-5 content grid (TASK-039 Spec, TASK-047 Spec) */
 .about-header-subblock {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Aligned strictly to left edge */
-  justify-content: flex-start;
+  align-items: flex-start;
   text-align: left;
   gap: 8px;
-  margin-bottom: 24px; /* Fixed distance from tracker line to top of layer text block */
-  width: fit-content; /* Sized precisely to the title width */
+  margin-left: 0;
+  padding-left: 0;
+  margin-bottom: 28px;
+  min-height: 60px;
+  width: 100%;
+  max-width: 320px;
+  align-self: flex-start;
 }
 
-/* Large Title for "О нас" */
-.about-main-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 5vw, 4rem);
+.about-main-title,
+.about-header-subblock .section-main-title {
+  font-family: 'Bounded', sans-serif;
   font-weight: 700;
+  font-size: 45px; /* Строго 45px */
+  line-height: 1.15;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #FFFFFF;
-  letter-spacing: 0.05em;
-  line-height: 1.05;
-  margin: 0;
+  margin: 0 0 8px 0;
   text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
 }
 
-/* 3-Segment Progress Line scaled relative to [О нас] box width */
+/* 2.1 Discrete Monolithic Progress Bar Track */
 .about-progress-tracker {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  width: 100%; /* Scaled relative to the title box */
-  height: 3px;
-}
-
-.tracker-segment {
-  flex: 1;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.18);
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 2px;
-  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  overflow: hidden;
 }
 
-/* White Glow Active State */
-.tracker-segment.active {
+.about-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 33.33%; /* Default layer 0 start width */
   background: #FFFFFF;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 4px #FFFFFF;
-  transform: scaleY(1.3);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================
-   Layer Stack Container & Asymmetrical Transitions (3.3 layers-stack)
+   Layer Stack & Grid Layout without Card Borders
    ========================================== */
 
 .about-layers-stack,
 .layers-stack {
   display: grid;
   grid-template-columns: 1fr;
-  align-items: start; /* Pin all layers strictly to the top edge of the stack */
+  align-items: start;
   align-content: start;
   position: relative;
   min-height: 460px;
 }
 
-/* Layer Card Frame with White Outline (matching reference design) */
 .about-layer {
   grid-column: 1 / -1;
   grid-row: 1 / -1;
-  align-self: start; /* Pin top edge of layer to Y:0 of layers-stack */
+  align-self: start;
   width: 100%;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(12px);
-  /* Instant disappearing transition (exit) */
   transition: opacity 0.05s ease-out, transform 0.05s ease-out, visibility 0.05s ease-out;
 
-  /* Clean White Outline Frame with Transparent Background */
+  /* Pure Utilitarian Grid Layout without Card Borders */
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 24px;
-  padding: 36px 40px;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
 }
 
-/* Active Layer: SLOWER / SMOOTH Fade-In Entrance */
 .about-layer.active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
-  /* Slower, smooth fade-in enter */
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
               transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
               visibility 0.75s ease;
 }
 
-/* Align grid columns to start so text block starts at exact same top position for all layers */
 .about-layer .grid-12 {
-  align-items: start;
+  align-items: center;
 }
 
-/* Left Zone: Text Content */
+/* Left Zone: Text Content (.col-5) */
 .genesis-text-block {
   display: flex;
   flex-direction: column;
@@ -141,54 +200,40 @@
   text-align: left;
   margin-top: 0;
   padding-top: 0;
-  align-self: start;
+  align-self: center;
 }
 
-/* Subheading H2 for [Кто мы], [История] & [Механизм] (35px Desktop) */
 .about-sub-title {
   font-family: var(--font-heading);
-  font-size: 35px; /* Exactly 35px on Desktop */
+  font-size: 35px;
   font-weight: 600;
   text-transform: uppercase;
   color: #FFFFFF;
   letter-spacing: 0.06em;
   line-height: 1.1;
-  margin: 0 0 6px 0; /* Zero top margin for strict uniform spacing from H1 */
-  padding-top: 0;
+  margin: 0 0 6px 0;
 }
 
-/* Body Paragraph Text (18px Desktop) */
 .genesis-paragraph {
   font-family: var(--font-body);
-  font-size: 18px; /* Exactly 18px on Desktop */
-  line-height: 1.45;
-  color: var(--color-text-secondary);
-  margin: 0;
-}
-
-.genesis-paragraph.lead {
   font-size: 18px;
-  line-height: 1.45;
+  line-height: 1.5;
   color: var(--color-text-secondary);
   margin: 0;
 }
 
-.genesis-paragraph .text-highlight {
-  color: #FFFFFF;
-  font-weight: 700;
-}
-
-/* Right Zone: Image Frame */
+/* Right Zone: Image Frame (.col-7) */
 .genesis-image-block {
   position: relative;
   width: 100%;
-  border-radius: 16px;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
   overflow: hidden;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  align-self: start; /* Align top edge of image with top of text block */
+  align-self: center;
 }
 
 .genesis-image-block:hover {
@@ -199,9 +244,9 @@
 
 .genesis-image-block img {
   width: 100%;
-  height: clamp(340px, 52vh, 580px); /* Increased height so images are not cropped */
+  height: 100%;
   object-fit: cover;
-  object-position: top;
+  object-position: center;
   display: block;
   transition: transform 0.5s ease;
 }
@@ -210,196 +255,101 @@
   transform: scale(1.02);
 }
 
-.genesis-image-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 65%, rgba(15, 15, 15, 0.8) 100%);
-  pointer-events: none;
-}
-
-/* ==========================================
-   Responsive Adaptations for Tablet & Phone
-   ========================================== */
-
-/* Tablet Adaptation (max-width: 1024px) */
+/* Responsive Adaptations */
 @media (max-width: 1024px) {
   .about-sticky-viewport {
     padding-top: calc(var(--header-height) + 24px);
     padding-bottom: 20px;
-    justify-content: flex-start;
-  }
-
-  .about-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  .about-layer {
-    padding: 28px 28px;
-    border-radius: 20px;
-  }
-
-  .about-layers-stack,
-  .layers-stack {
-    flex: 1;
-    display: grid;
-    min-height: 0;
-    align-items: start;
-    align-content: start;
-  }
-
-  .about-layer.active {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  .about-layer .grid-12 {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    flex: 1;
-    height: 100%;
-    align-items: stretch;
-  }
-
-  .about-layer .col-5 {
-    width: 100%;
-    max-width: 100%;
-    flex-shrink: 0;
-  }
-
-  /* Illustration column on Tablet */
-  .about-layer .col-7 {
-    width: 100%;
-    max-width: 100%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    min-height: 0;
-  }
-
-  .about-header-subblock {
-    margin-bottom: 20px; /* Strict uniform distance to H2 on Tablet */
-    gap: 8px;
-    flex-shrink: 0;
-  }
-
-  .about-main-title {
-    font-size: clamp(2.2rem, 5vw, 4rem); /* Equalized to Desktop */
   }
 
   .about-sub-title {
-    font-size: 35px; /* Equalized to 35px Desktop font */
-    margin: 0 0 6px 0;
-    padding-top: 0;
-  }
-
-  .genesis-text-block {
-    gap: 14px;
-    margin-top: 0;
-    padding-top: 0;
-    flex-shrink: 0;
+    font-size: 28px;
   }
 
   .genesis-paragraph {
-    font-size: 18px; /* Equalized to 18px Desktop font */
-    line-height: 1.45;
+    font-size: 16px;
   }
 
-  /* Container strictly capped to the height of the image itself */
   .genesis-image-block {
-    position: relative;
-    width: 100%;
-    height: auto;
-    max-height: 100%;
-    align-self: flex-start;
-  }
-
-  .genesis-image-block img {
-    width: 100%;
-    height: auto;
-    max-height: clamp(260px, 40vh, 460px);
-    object-fit: cover;
-    object-position: top;
-    display: block;
+    aspect-ratio: 16 / 9;
   }
 }
 
-/* Phone / Mobile Adaptation (max-width: 768px) */
 @media (max-width: 768px) {
-  .about-layer {
-    padding: 20px 18px;
+  .about-sub-title {
+    font-size: 22px;
+  }
+
+  .genesis-paragraph {
+    font-size: 14.5px;
+    line-height: 1.4;
+  }
+
+  .about-header-subblock {
+    margin-bottom: 20px;
+  }
+
+  .about-sticky-viewport::after {
+    height: 70px;
+  }
+}
+
+/* =========================================================
+   TASK-038: 1. FULL HD СТАНДАРТ (1920 × 1080 px):
+   ========================================================= */
+@media (min-width: 1600px) and (max-width: 2048px) {
+  .about-sub-title {
+    font-size: 38px;
+    line-height: 1.15;
+  }
+
+  .genesis-paragraph {
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .genesis-image-block {
+    aspect-ratio: 16 / 10;
+    max-height: 520px;
+    border-radius: 14px;
+  }
+}
+
+/* =========================================================
+   TASK-038: 2. 2K / QHD СТАНДАРТ (2560 × 1440 px):
+   ========================================================= */
+@media (min-width: 2049px) {
+  .about-sub-title {
+    font-size: 48px;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  .genesis-paragraph {
+    font-size: 22px;
+    line-height: 1.6;
+  }
+
+  .genesis-text-block {
+    gap: 20px;
+  }
+
+  .about-header-subblock {
+    max-width: 380px;
+  }
+
+  .about-progress-tracker {
+    max-width: 380px;
+    height: 3px;
+  }
+
+  .genesis-image-block {
+    aspect-ratio: 16 / 10;
+    max-height: 680px;
     border-radius: 18px;
   }
 
-  .about-sticky-viewport {
-    padding-top: calc(var(--header-height) + 24px);
-    padding-bottom: 16px;
-    justify-content: flex-start;
-  }
-
-  .about-header-subblock {
-    margin-bottom: 18px; /* Strict uniform distance to H2 on Phone */
-    gap: 6px;
-  }
-
-  .about-main-title {
-    font-size: 1.9rem;
-  }
-
-  .about-sub-title {
-    font-size: 22px; /* 22px on Phone */
-    margin: 0 0 6px 0;
-    padding-top: 0;
-  }
-
-  .genesis-text-block {
-    gap: 10px;
-    margin-top: 0;
-    padding-top: 0;
-  }
-
-  .genesis-paragraph {
-    font-size: 14.5px; /* 14.5px on Phone */
-    line-height: 1.38;
-  }
-
-  .genesis-image-block img {
-    height: clamp(240px, 35vh, 360px);
-  }
-}
-
-/* Small Mobile Adaptation (max-width: 480px) - Equalized to Phone font sizes */
-@media (max-width: 480px) {
-  .about-layer {
-    padding: 16px 14px;
-    border-radius: 16px;
-  }
-
-  .about-header-subblock {
-    margin-bottom: 18px; /* Strict uniform distance to H2 on Small Mobile */
-  }
-
-  .about-main-title {
-    font-size: 1.9rem; /* Equalized to Phone */
-  }
-
-  .about-sub-title {
-    font-size: 22px; /* Equalized to 22px Phone font */
-    margin: 0 0 6px 0;
-    padding-top: 0;
-  }
-
-  .genesis-paragraph {
-    font-size: 14.5px; /* Equalized to 14.5px Phone font */
-    line-height: 1.38;
-  }
-
-  .genesis-image-block img {
-    height: clamp(220px, 33vh, 320px);
+  .about-sticky-viewport::after {
+    height: clamp(145px, 16vh, 235px);
   }
 }

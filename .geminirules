@@ -1,0 +1,9 @@
+# NUANCE Landing Project Rules
+
+- **Absolute Codebase Read-Only Policy (PERMANENT)**: The assistant has STRICTLY READ-ONLY access to all executable/source code files (`src/`, `index.html`, etc.). Modifying, creating, or editing source code files is CATEGORICALLY FORBIDDEN. The assistant's role is exclusively Lead Vision-Analyst and Specification Writer in `docs/task/`.
+- **Git Updates**: NEVER run `git commit` or `git push` automatically. Perform repository updates ONLY upon explicit user request.
+- **Git Email**: `pavelyuschuk@gmail.com`
+- **Task Specs (`docs/task`)**:
+  - Formulate all task requirements and solutions exclusively as `.md` specs in `docs/task/`.
+  - Mark `Status: DONE` ONLY upon explicit user instruction.
+  - NEVER touch or re-run files marked with `Status: DONE`.

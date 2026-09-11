@@ -1,0 +1,82 @@
+/* ==========================================================================
+   TASK-074: TargetCursor Stylesheet (React Bits Component Adaptation)
+   ========================================================================== */
+
+/* 1. Полное скрытие системного курсора на десктопе при активном TargetCursor */
+body.target-cursor-active,
+body.target-cursor-active a,
+body.target-cursor-active button,
+body.target-cursor-active [role="button"],
+body.target-cursor-active input,
+body.target-cursor-active select,
+body.target-cursor-active textarea,
+body.target-cursor-active .cursor-target,
+body.target-cursor-active .doctrine-card,
+body.target-cursor-active .lang-switcher-btn,
+body.target-cursor-active .lang-dropdown-item,
+body.target-cursor-active .team-roster-item {
+  cursor: none !important;
+}
+
+/* 2. Контейнер курсора: фиксирован поверх всего сайта, нулевой размер, прозрачен для кликов */
+.target-cursor-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 2147483647; /* Максимальный системный z-index */
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+
+/* 3. Центральная тактическая точка прицела */
+.target-cursor-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+/* 4. Четыре тактических скобки-уголка (Corner Brackets) */
+.target-cursor-corner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border: 3px solid #ffffff;
+  box-sizing: border-box;
+  will-change: transform, border-color;
+}
+
+/* Верхний левый уголок */
+.corner-tl {
+  border-right: none;
+  border-bottom: none;
+}
+
+/* Верхний правый уголок */
+.corner-tr {
+  border-left: none;
+  border-bottom: none;
+}
+
+/* Нижний правый уголок */
+.corner-br {
+  border-left: none;
+  border-top: none;
+}
+
+/* Нижний левый уголок */
+.corner-bl {
+  border-right: none;
+  border-top: none;
+}

@@ -6,7 +6,56 @@ export function initNavigation() {
   const mobileToggle = document.querySelector('.mobile-toggle');
   const headerNav = document.querySelector('.header-nav');
   const navLinks = document.querySelectorAll('.nav-link');
-  const langBtns = document.querySelectorAll('.lang-btn');
+  // Dropdown language switcher (TASK-065)
+  const langSwitcher = document.getElementById('langSwitcher');
+  const langTrigger = document.getElementById('langTrigger');
+  const langDropdown = document.getElementById('langDropdown');
+  const dropdownItems = document.querySelectorAll('.lang-dropdown-item');
+
+  // Toggle dropdown on trigger click
+  if (langTrigger && langSwitcher) {
+    langTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = langSwitcher.classList.toggle('is-open');
+      langTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Handle language selection in dropdown
+    dropdownItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const selectedLang = item.getAttribute('data-lang');
+
+        // Close dropdown
+        langSwitcher.classList.remove('is-open');
+        langTrigger.setAttribute('aria-expanded', 'false');
+
+        // Dispatch languageChange event
+        window.dispatchEvent(new CustomEvent('languageChange', {
+          detail: { lang: selectedLang }
+        }));
+      });
+    });
+
+    // Close dropdown on outside click
+    document.addEventListener('click', (e) => {
+      if (!langSwitcher.contains(e.target)) {
+        langSwitcher.classList.remove('is-open');
+        langTrigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && langSwitcher.classList.contains('is-open')) {
+        langSwitcher.classList.remove('is-open');
+        langTrigger.setAttribute('aria-expanded', 'false');
+        langTrigger.focus();
+      }
+    });
+  }
+
+  const scrollTopBtn = document.querySelector('.btn-scroll-top');
 
   // Mobile menu toggle
   if (mobileToggle && headerNav) {
@@ -24,18 +73,12 @@ export function initNavigation() {
     });
   }
 
-  // Language switcher state
-  langBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      langBtns.forEach(b => b.classList.remove('active'));
-      const target = e.currentTarget;
-      target.classList.add('active');
-      const lang = target.getAttribute('data-lang');
-      console.log(`Language switched to: ${lang}`);
-      // Dispatch custom language change event
-      window.dispatchEvent(new CustomEvent('languageChange', { detail: { lang } }));
+  // Scroll to top button in footer (TASK-022, TASK-079)
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-  });
+  }
 
   // Smooth active highlight on scroll
   const sections = document.querySelectorAll('section[id]');

@@ -1,0 +1,337 @@
+/* ==========================================
+   TASK-016, TASK-017, TASK-018 & TASK-021: Section 3.6 Call to Action / Social Networks Spec
+   ========================================== */
+
+#cta.cta-section,
+.cta-section {
+  min-height: 100vh;
+  height: 100vh;
+  width: 100%;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent; /* Inherits global-bg */
+}
+
+#cta .container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Section Header Block (z-index: 2) */
+.cta-header-block {
+  text-align: center;
+  margin-bottom: 56px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Status Indicator Pill: СВЯЗЬ ОТКРЫТА // COMMS ONLINE */
+.cta-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  background: rgba(193, 255, 0, 0.08);
+  border: 1px solid rgba(193, 255, 0, 0.3);
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #C1FF00;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #C1FF00;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 6px #C1FF00;
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.35);
+    box-shadow: 0 0 16px #C1FF00;
+    opacity: 1;
+  }
+}
+
+.status-text {
+  font-family: var(--font-body); /* JetBrains Mono 700 */
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #C1FF00;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Main Title H2 (TASK-047 Spec: строго 45px) */
+.cta-main-title {
+  font-family: 'Bounded', sans-serif;
+  font-weight: 700;
+  font-size: 45px; /* Строго 45px */
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.cta-sub-title {
+  font-family: var(--font-body); /* JetBrains Mono 400 */
+  font-size: 1.1rem;
+  color: #888888;
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+}
+
+/* HUD Social Cards Grid (4 platforms repeat(4, 1fr)) */
+.cta-socials-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Individual HUD Social Card */
+.social-hud-card {
+  background: rgba(20, 28, 41, 0.65);
+  border: 1px solid rgba(39, 53, 77, 0.5);
+  border-radius: 12px;
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 230px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.social-hud-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--card-accent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px var(--card-glow);
+}
+
+/* Platform Accent Variables */
+.social-hud-card[data-platform="telegram"] {
+  --card-accent: #24A1DE;
+  --card-glow: rgba(36, 161, 222, 0.25);
+}
+
+.social-hud-card[data-platform="youtube"] {
+  --card-accent: #FF0000;
+  --card-glow: rgba(255, 0, 0, 0.25);
+}
+
+.social-hud-card[data-platform="tiktok"] {
+  --card-accent: #00F2FE;
+  --card-glow: rgba(0, 242, 254, 0.25);
+}
+
+.social-hud-card[data-platform="instagram"] {
+  --card-accent: #E1306C;
+  --card-glow: rgba(225, 48, 108, 0.25);
+}
+
+/* Card Header: SVG Brand Logo & Platform Title */
+.hud-card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hud-channel-badge {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 28px;
+}
+
+.social-brand-icon {
+  height: 24px;
+  width: auto;
+  max-width: 28px;
+  display: block;
+  object-fit: contain;
+}
+
+.platform-name-title {
+  font-family: var(--font-heading); /* Rajdhani 700 */
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+.hud-freq-code {
+  font-family: var(--font-body); /* JetBrains Mono 400 */
+  font-size: 0.82rem;
+  color: #888888;
+  letter-spacing: 0.05em;
+}
+
+/* Card Bottom Action Area */
+.hud-card-bottom {
+  margin-top: 24px;
+}
+
+.hud-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.social-hud-card:hover .hud-action-btn {
+  background: var(--card-accent);
+  border-color: var(--card-accent);
+  color: #FFFFFF;
+}
+
+.hud-action-arrow {
+  font-size: 1.05rem;
+  transition: transform 0.3s ease;
+}
+
+.social-hud-card:hover .hud-action-arrow {
+  transform: translateX(4px);
+}
+
+/* Responsive Grid Adaptation */
+@media (max-width: 1024px) {
+  #cta.cta-section,
+  .cta-section {
+    padding: 0;
+  }
+
+  .cta-socials-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .social-hud-card {
+    padding: 24px 20px;
+    min-height: 210px;
+  }
+}
+
+@media (max-width: 768px) {
+  #cta.cta-section,
+  .cta-section {
+    min-height: auto;
+    height: auto;
+    padding: 80px 0;
+  }
+
+  .cta-header-block {
+    margin-bottom: 40px;
+  }
+
+  .cta-socials-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .social-hud-card {
+    min-height: 190px;
+    padding: 22px 20px;
+  }
+}
+
+/* =========================================================
+   TASK-038: 1. FULL HD СТАНДАРТ (1920 × 1080 px):
+   ========================================================= */
+@media (min-width: 1600px) and (max-width: 2048px) {
+  .cta-socials-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .social-hud-card {
+    min-height: 240px;
+    padding: 28px 24px;
+  }
+
+  .platform-name-title {
+    font-size: 1.25rem;
+  }
+
+  .hud-action-btn {
+    font-size: 0.85rem;
+    padding: 12px 16px;
+  }
+}
+
+/* =========================================================
+   TASK-038: 2. 2K / QHD СТАНДАРТ (2560 × 1440 px):
+   ========================================================= */
+@media (min-width: 2049px) {
+  .cta-header-block {
+    margin-bottom: 56px;
+  }
+
+  .cta-socials-grid {
+    gap: 36px;
+  }
+
+  .social-hud-card {
+    min-height: 290px;
+    padding: 36px 32px;
+    border-radius: 18px;
+  }
+
+  .social-brand-icon {
+    height: 32px;
+    width: 32px;
+    max-width: 32px;
+  }
+
+  .platform-name-title {
+    font-size: 1.5rem;
+  }
+
+  .hud-freq-code {
+    font-size: 0.95rem;
+  }
+
+  .hud-action-btn {
+    font-size: 0.95rem;
+    padding: 14px 20px;
+    border-radius: 8px;
+  }
+}

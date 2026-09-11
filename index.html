@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NUANCE — Тактическая Группа</title>
+  <title>NUANCE</title>
   <meta name="description" content="Лендинг-портфолио тактической группы NUANCE. Состав команды, философия бренда и ключевые компетенции." />
+
+  <!-- Иконка сайта (Favicon) для вкладок и панели закладок (TASK-077) -->
+  <link rel="icon" type="image/png" href="/assets/images/NUANCE logo.png" />
+  <link rel="shortcut icon" type="image/png" href="/assets/images/NUANCE logo.png" />
+  <link rel="apple-touch-icon" href="/assets/images/NUANCE logo.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- Глобальный фоновый слой (сохраняется для всех блоков) -->
@@ -25,15 +32,56 @@
       <nav class="header-nav">
         <a href="#genesis" class="nav-link">О Нас</a>
         <a href="#team" class="nav-link">Команда</a>
-        <a href="#projects" class="nav-link">Проекты</a>
+        <a href="#doctrine" class="nav-link">Доктрина</a>
         <a href="#cta" class="nav-link">Контакты</a>
       </nav>
 
       <div class="header-controls">
-        <div class="lang-switcher">
-          <button class="lang-btn active" data-lang="ru">RU</button>
-          <span class="lang-divider">|</span>
-          <button class="lang-btn" data-lang="en">EN</button>
+        <!-- TASK-065: Кастомный выпадающий переключатель языков по референсу -->
+        <div class="lang-switcher" id="langSwitcher">
+          <!-- Кнопка-триггер с прозрачным фоном, иконкой глобуса и шевроном -->
+          <button type="button" 
+                  class="lang-trigger" 
+                  id="langTrigger" 
+                  aria-haspopup="listbox" 
+                  aria-expanded="false" 
+                  aria-label="Выбрать язык сайта">
+            <!-- Векторная иконка глобуса -->
+            <svg class="lang-globe-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            
+            <!-- Текст текущего выбранного языка -->
+            <span class="lang-current-label" id="langCurrentLabel">Русский</span>
+            
+            <!-- Векторная иконка шеврона (стрелка вниз) -->
+            <svg class="lang-chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+
+          <!-- Выпадающее меню с 3 языками и радио-индикаторами -->
+          <div class="lang-dropdown" id="langDropdown" role="listbox" aria-labelledby="langTrigger">
+            <!-- 1. Українська -->
+            <button type="button" class="lang-dropdown-item" role="option" data-lang="uk" aria-selected="false">
+              <span class="lang-radio" aria-hidden="true"></span>
+              <span class="lang-text">Українська</span>
+            </button>
+
+            <!-- 2. English -->
+            <button type="button" class="lang-dropdown-item" role="option" data-lang="en" aria-selected="false">
+              <span class="lang-radio" aria-hidden="true"></span>
+              <span class="lang-text">English</span>
+            </button>
+
+            <!-- 3. Русский -->
+            <button type="button" class="lang-dropdown-item active" role="option" data-lang="ru" aria-selected="true">
+              <span class="lang-radio" aria-hidden="true"></span>
+              <span class="lang-text">Русский</span>
+            </button>
+          </div>
         </div>
         
         <button class="mobile-toggle" aria-label="Открыть меню">
@@ -47,29 +95,53 @@
 
   <!-- 3.2 Hero-блок (Точка входа) -->
   <section id="hero" class="hero">
-    <div class="container hero-content">
-      <h1 class="hero-title">
-        Рожденные импровизировать
-      </h1>
+    <div class="container hero-container">
+      <div class="grid-12 hero-split-grid">
+        
+        <!-- Левая колонка (7 колонок): Монолитный текст -->
+        <div class="col-7 hero-left-content">
+          <h1 class="sr-only">НЕПРЕДВИДЕННЫЙ НЮАНС — Три майндсета. Один идеальный симбиоз.</h1>
+          <div class="hero-monolith-wrapper">
+            <svg viewBox="0 0 1000 360" class="hero-monolith-svg" preserveAspectRatio="xMidYMid meet" role="img" aria-label="НЕПРЕДВИДЕННЫЙ НЮАНС — Три майндсета. Один идеальный симбиоз.">
+              
+              <!-- СТРОКА 1: НЕПРЕДВИДЕННЫЙ (Точно 1000px ширины) -->
+              <text x="0" y="76" textLength="1000" lengthAdjust="spacingAndGlyphs" 
+                    font-family="'Bounded', sans-serif" font-weight="700" font-size="74" fill="#FFFFFF">
+                НЕПРЕДВИДЕННЫЙ
+              </text>
+              
+              <!-- СТРОКА 2: НЮАНС (Оптическое выравнивание: смещение x="-10", ширина textLength="1010", кегль 222) -->
+              <text x="-10" y="274" textLength="1010" lengthAdjust="spacingAndGlyphs" 
+                    font-family="'Bounded', sans-serif" font-weight="700" font-size="222" fill="#FFFFFF">
+                НЮАНС
+              </text>
+              
+              <!-- СТРОКА 3: ТРИ МАЙНДСЕТА. ОДИН ИДЕАЛЬНЫЙ СИМБИОЗ. (Точно 1000px ширины) -->
+              <text x="0" y="344" textLength="1000" lengthAdjust="spacing" 
+                    font-family="'Bounded', sans-serif" font-weight="300" font-size="25" fill="#FFFFFF">
+                ТРИ МАЙНДСЕТА. ОДИН ИДЕАЛЬНЫЙ СИМБИОЗ.
+              </text>
+            </svg>
+          </div>
+        </div>
 
-      <p class="hero-subtitle">
-        Три абсолютно разных игрока. Один идеальный симбиоз для решения нерешаемых задач.
-      </p>
+        <!-- Правая зона: Пространство под увеличенный .global-bg-logo -->
+        <div class="col-5 hero-right-spacer" aria-hidden="true"></div>
+
+      </div>
     </div>
   </section>
 
-  <!-- 3.3 Sticky Scroll Section ("О нас" - 3.3.0 Кто мы, 3.3.1 История, 3.3.2 Механизм) -->
+  <!-- 3.3 Sticky Scroll Section ("О нас" - TASK-003) -->
   <section id="genesis" class="about-sticky-section">
     <div class="about-sticky-viewport">
       <div class="container about-container">
         
-        <!-- Левоориентированный подблок: [О нас] & 3-сегментная линия трекера -->
-        <div class="about-header-subblock">
-          <h1 class="about-main-title">О нас</h1>
-          <div class="about-progress-tracker">
-            <div class="tracker-segment segment-1 active" data-layer="0"></div>
-            <div class="tracker-segment segment-2" data-layer="1"></div>
-            <div class="tracker-segment segment-3" data-layer="2"></div>
+        <!-- Левоориентированный подблок: О нас -->
+        <div class="about-header-subblock section-header-subblock">
+          <h1 class="about-main-title section-main-title">О нас</h1>
+          <div class="about-progress-tracker section-tracker-line">
+            <div class="about-progress-fill section-tracker-fill"></div>
           </div>
         </div>
 
@@ -81,22 +153,24 @@
             <div class="grid-12">
               <!-- Левая зона (5 колонок) -->
               <div class="col-5 genesis-text-block">
-                <h2 class="about-sub-title">Кто мы</h2>
+                <h2 class="about-sub-title">Фатальная ошибка в чужом плане.</h2>
 
                 <p class="genesis-paragraph">
-                  Мы — <strong class="text-highlight">NUANCE</strong>. Тактическая группа быстрого реагирования. Там, где большинство игроков упирается в шаблонные лобовые штурмы, мы заходим в глубокий тыл и бьем оттуда, где нас меньше всего ждут.
+                  Там, где остальные упираются в предсказуемые лобовые штурмы, мы заходим в глубокий тыл. Пока теоретики чертят стрелочки на карте и душат позиционку, мы ломаем геометрию боя из слепой зоны.
                 </p>
-
                 <p class="genesis-paragraph">
-                  Мы не строим иллюзий насчет идеальных стратегий. Наш профиль — асимметричная стратегия и чистая импровизация. Идеальный план всегда рушится о непредвиденный <strong class="text-highlight">НЮАНС</strong>. И именно в этом хаосе мы начинаем навязывать противнику свои правила игры.
+                  Мы не играем в шахматы. Любая стратегия врага неизбежно споткнется о непредвиденный нюанс. И этот нюанс — мы.
                 </p>
               </div>
 
               <!-- Правая зона (7 колонок) -->
               <div class="col-7">
-                <div class="genesis-image-block">
-                  <img src="/assets/images/About. Screen 0.png" alt="Кто мы — NUANCE Тактическая группа" loading="eager" />
-                  <div class="genesis-image-overlay"></div>
+                <div class="genesis-image-block border-glow-card">
+                  <span class="edge-light" aria-hidden="true"></span>
+                  <div class="border-glow-inner">
+                    <img src="/assets/images/About. Screen 2.jpg" alt="NUANCE — Фатальная ошибка в чужом плане" loading="eager" />
+                    <div class="genesis-image-overlay"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -107,22 +181,21 @@
             <div class="grid-12">
               <!-- Левая зона (5 колонок) -->
               <div class="col-5 genesis-text-block">
-                <h2 class="about-sub-title">История</h2>
+                <h2 class="about-sub-title">Отсекая лишнее.</h2>
 
                 <p class="genesis-paragraph">
-                  История NUANCE началась на обломках более крупного комьюнити — S.O.S.I.4. Первоначальный замысел был амбициозным: массированные скоординированные действия, меняющие ход боя. Но массовость предсказуемо превратилась в неповоротливость и уязвимость. План забуксовал.
-                </p>
-
-                <p class="genesis-paragraph">
-                  Из всего состава осталась лишь тройка игроков, осознавших базовое правило: для эффективности нужна хирургическая точность, а не толпа. Так сформировался NUANCE.
+                  Мы начинали как часть масштабного комьюнити. Наследие S.O.S.I.4 должно было стать историей о скоординированной мощи, но со временем онлайн просто вымер. Дискорд превратился в братскую могилу, а прайм-тайм — в унылые списки «был в сети 45 дней назад». Когда громоздкие планы окончательно забуксовали, из всего состава нас осталось только трое. Мы усвоили жестокий урок: для победы нужна хирургическая слаженность, а не толпа. Так масштаб сменился на фокус.
                 </p>
               </div>
 
               <!-- Правая зона (7 колонок) -->
               <div class="col-7">
-                <div class="genesis-image-block">
-                  <img src="/assets/images/About. Screen 1.png" alt="История NUANCE — S.O.S.I.4 Генезис" loading="lazy" />
-                  <div class="genesis-image-overlay"></div>
+                <div class="genesis-image-block border-glow-card">
+                  <span class="edge-light" aria-hidden="true"></span>
+                  <div class="border-glow-inner">
+                    <img src="/assets/images/About. Screen 1.png" alt="История NUANCE — Отсекая лишнее" loading="lazy" />
+                    <div class="genesis-image-overlay"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -133,129 +206,444 @@
             <div class="grid-12">
               <!-- Левая зона (5 колонок) -->
               <div class="col-5 genesis-text-block">
-                <h2 class="about-sub-title">Механизм</h2>
+                <h2 class="about-sub-title">Три майндсета. Один монолит.</h2>
 
                 <p class="genesis-paragraph">
-                  NUANCE функционирует как единый механизм, где нет универсальных бойцов. Архитектура нашего взаимодействия выстроена так, что уязвимость одного перекрывается сильными сторонами другого.
-                </p>
-
-                <p class="genesis-paragraph">
-                  Здесь нет борьбы за личную славу. Наша главная сила кроется в принятии собственной неидеальности. Три разных стиля игры, три абсолютно непохожих майндсета мгновенно замыкаются в монолитную базу, чтобы вытащить ситуацию на чистой импровизации и характере.
+                  У нас нет универсальных бойцов-одиночек. NUANCE работает так, что дыра в скилле или позиционке одного наглухо перекрывается агрессией другого. Никакой борьбы за личную стату — только командный результат. Наша сила в том, что три абсолютно разных стиля игры замыкаются в единую систему. Мы вытаскиваем мертвые ситуации на чистой импровизации и характере.
                 </p>
               </div>
 
               <!-- Правая зона (7 колонок) -->
               <div class="col-7">
-                <div class="genesis-image-block">
-                  <img src="/assets/images/About. Screen 2.jpg" alt="Механизм NUANCE — Единый механизм" loading="lazy" />
-                  <div class="genesis-image-overlay"></div>
+                <div class="genesis-image-block border-glow-card">
+                  <span class="edge-light" aria-hidden="true"></span>
+                  <div class="border-glow-inner">
+                    <img src="/assets/images/About. Screen 0 (2).png" alt="NUANCE Тактическая группа" loading="lazy" />
+                    <div class="genesis-image-overlay"></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- 3.4. Команда (Full-Viewport Snap Scroll Section) -->
-  <section id="team" class="team-snap-section">
+  <!-- 3.4. Team Character Selector Section (TASK-010 & TASK-011 5-Zone Architecture & SideRays Spec) -->
+  <section id="team" class="team-sticky-section">
+    <div class="team-sticky-viewport">
+      
+      <!-- Zone 0: Dynamic Background Layer (z-index: 1) -->
+      <div class="team-zone-0">
+        <div class="team-bg-layer active" data-player-id="0"></div>
+        <div class="team-bg-layer" data-player-id="1"></div>
+        <div class="team-bg-layer" data-player-id="2"></div>
+      </div>
+
+      <!-- Zone 2: WebGL LightRays VFX Overlay Layer (TASK-069) -->
+      <div class="team-zone-2 light-rays-container custom-rays"></div>
+
+      <!-- TASK-071: Выделенный физический слой верхнего градиентного шва (z-index: 4, над лучами) -->
+      <div class="team-seam-gradient-top"></div>
+
+      <div class="container team-container team-screen-container">
+        
+        <!-- 1. ОТДЕЛЬНЫЙ АВТОНОМНЫЙ ЛЕВООРИЕНТИРОВАННЫЙ ПОДБЛОК (ВНЕ ZONE 3 - TASK-045) -->
+        <div class="team-header-subblock section-header-subblock">
+          <h2 class="team-main-title">КОМАНДА</h2>
+        </div>
+
+        <!-- 2. ОСНОВНАЯ СЕТКА СЛОЕВ (ZONE 3, ZONE 4, ZONE 1) -->
+        <div class="grid-12 team-main-grid">
+          
+          <!-- Zone 3: Left Vertical Roster Navigation (Автономная центровка) -->
+          <div class="col-3 team-zone-3">
+            <div class="team-roster-nav">
+              <!-- Player 0 Card: Presa4ek -->
+              <div class="roster-card active" data-player-id="0">
+                <img src="/assets/images/Presa4ek SCALE Vertical Roster Navigation.png?v=4" alt="Presa4ek" class="roster-card-img" />
+                <div class="roster-card-overlay"></div>
+                <span class="roster-card-name">Presa4ek</span>
+              </div>
+
+              <!-- Player 1 Card: Art1zi -->
+              <div class="roster-card" data-player-id="1">
+                <img src="/assets/images/Art1zi SCALE Vertical Roster Navigation.png?v=4" alt="Art1zi" class="roster-card-img" />
+                <div class="roster-card-overlay"></div>
+                <span class="roster-card-name">Art1zi</span>
+              </div>
+
+              <!-- Player 2 Card: Matvi4 -->
+              <div class="roster-card" data-player-id="2">
+                <img src="/assets/images/Matvi4 Vertical Roster Navigation.png?v=4" alt="Matvi4" class="roster-card-img" />
+                <div class="roster-card-overlay"></div>
+                <span class="roster-card-name">Matvi4</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Zone 4: Center Info Panel (.col-5 / .team-zone-4, z-index: 5) -->
+          <div class="col-5 team-zone-4 team-info-panel">
+            <!-- Player 0 Info: Presa4ek -->
+            <div class="player-info-layer active screen-presa4ek" data-player-id="0">
+              <div class="team-player-header">
+                <h2 class="team-player-name">Presa4ek</h2>
+                <div class="team-player-role">Искусство стратегии</div>
+              </div>
+              <blockquote class="player-quote">«Я просчитал все варианты исходы этого боя. Победный только один.»</blockquote>
+              <div class="player-quote-progress"></div>
+
+              <p class="team-player-desc">
+                Главный мозг и стратег отряда. Просчитывает тайминги боя на три шага вперед и заранее знает, откуда прилетит угроза. Со звуком — на «ты»: за доли секунды по микрошороху определяет, кто крадется в кустах, отличает калибр пулемета и модель двигателя техники за километр. Отлично пилотирует вертушки. Любит подушнить и нагнетать панику.
+              </p>
+              <p class="player-nuance-block">
+                <strong class="text-highlight">Нюанс:</strong> Регулярно ломает тиммейтам мозг, путая «право» и «лево» в боевых коллаутах. А его броски гранат заслуживают отдельной премии: он скорее подорвет весь свой сквад, чем докинет до врага. Не матерится — интеллигентный и вежливый.
+              </p>
+
+              <div class="team-stats-list">
+                <div class="stat-row">
+                  <span class="stat-label">Стратегия</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="100%"></div></div>
+                  <span class="stat-value-text">100%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Слух</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="95%"></div></div>
+                  <span class="stat-value-text">95%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Аим</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="30%"></div></div>
+                  <span class="stat-value-text">30%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Выживаемость</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="20%"></div></div>
+                  <span class="stat-value-text">20%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Токсичность</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="0%"></div></div>
+                  <span class="stat-value-text">0%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Player 1 Info: Art1zi -->
+            <div class="player-info-layer screen-art1zi" data-player-id="1">
+              <div class="team-player-header">
+                <h2 class="team-player-name">Art1zi</h2>
+                <div class="team-player-role">Тяжелый аргумент</div>
+              </div>
+              <blockquote class="player-quote">«Сначала стреляю, затем спрашиваю…»</blockquote>
+              <div class="player-quote-progress"></div>
+
+              <p class="team-player-desc">
+                Главный и окончательный аргумент в любом дипломатическом тупике. Враги у него отлетают на респаун быстрее, чем успевают прожать прицел. К штурмовой винтовке относится как к родной матери, к гранатомету — как к музе. Если в небе появляется вообще всё, что летает — оно тут же оказывается на земле. Способен в соло закрыть клатч 1 в 3 на лоу ХП.
+              </p>
+              <p class="player-nuance-block">
+                <strong class="text-highlight">Нюанс:</strong> Топографический ноль. Если запустить его одного в коридор с одной дверью, он умудрится заблудиться и выйти через текстуры. Садясь за руль со словами «ща профи покажет», стабильно впечатывается в забор.
+              </p>
+
+              <div class="team-stats-list">
+                <div class="stat-row">
+                  <span class="stat-label">Импакт</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="98%"></div></div>
+                  <span class="stat-value-text">98%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Универсальность</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="85%"></div></div>
+                  <span class="stat-value-text">85%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Аим</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="99%"></div></div>
+                  <span class="stat-value-text">99%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Выживаемость</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="80%"></div></div>
+                  <span class="stat-value-text">80%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Токсичность</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="50%"></div></div>
+                  <span class="stat-value-text">50%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Player 2 Info: Matvi4 -->
+            <div class="player-info-layer screen-matvi4" data-player-id="2">
+              <div class="team-player-header">
+                <h2 class="team-player-name">Matvi4</h2>
+                <div class="team-player-role">Суетолог</div>
+              </div>
+              <blockquote class="player-quote">«Ни%@я не понял, но п#$дец как интересно!»</blockquote>
+              <div class="player-quote-progress"></div>
+
+              <p class="team-player-desc">
+                Обладает встроенным читом на бессмертие: выживает там, где даже тараканы гибнут. Почти никогда не понимает, что вообще происходит на поле боя, но если весь сквад вайпается — этот гений всегда остается на ногах и под градом пуль поднимает павших. В дуэте с Art1zi превращает катку в отбитый фильм Тарантино: тонны гильз, стрельба во все стороны и сплошной кровавый цирк.
+              </p>
+              <p class="player-nuance-block">
+                <strong class="text-highlight">Нюанс:</strong> Водит агрессивно, громко и исключительно боком. Доставит отряд в зону эвакуации за три секунды, но через крышу сарая Если в его фразе меньше пяти матов, значит, он очень сильно пытался быть вежливым.
+              </p>
+
+              <div class="team-stats-list">
+                <div class="stat-row">
+                  <span class="stat-label">Геймсенс</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="5%"></div></div>
+                  <span class="stat-value-text">5%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Вождение</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="84%"></div></div>
+                  <span class="stat-value-text">84%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Аим</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="65%"></div></div>
+                  <span class="stat-value-text">65%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Выживаемость</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="95%"></div></div>
+                  <span class="stat-value-text">95%</span>
+                </div>
+                <div class="stat-row">
+                  <span class="stat-label">Токсичность</span>
+                  <div class="stat-bar-track"><div class="stat-bar-fill" data-stat-val="100%"></div></div>
+                  <span class="stat-value-text">100%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Zone 1: Character Portrait PNG Layer (.col-4 / .team-zone-1, z-index: 2) -->
+          <div class="col-4 team-zone-1">
+            <div class="team-portrait-wrapper">
+              <img src="/assets/images/PORTRAIT PNG Presa4ek.png?v=3" alt="Presa4ek Portrait" class="player-portrait-img layer-0 active" data-portrait-id="0" />
+              <img src="/assets/images/PORTRAIT PNG Art1zi.png?v=3" alt="Art1zi Portrait" class="player-portrait-img layer-1" data-portrait-id="1" />
+              <img src="/assets/images/PORTRAIT PNG Matvi4.png?v=4" alt="Matvi4 Portrait" class="player-portrait-img layer-2" data-portrait-id="2" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TASK-076: Нижний градиентный шов перехода между Секцией 3.4 и Секцией 3.5 -->
+      <div class="team-seam-gradient-bottom" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- 3.5. Doctrine Section (TASK-023 & TASK-057 Spec) -->
+  <section id="doctrine" class="doctrine-section">
     
-    <!-- Зафиксированное лого "Кольцо" HUD (right: 40px, top: 50%) -->
-    <div class="team-hud-ring" aria-label="HUD Indicator Ring">
-      <svg class="hud-ring-svg" viewBox="0 0 100 100">
-        <!-- Фон кольца -->
-        <circle cx="50" cy="50" r="40" stroke="rgba(255, 255, 255, 0.12)" stroke-width="4" fill="none" />
-        
-        <!-- Сегмент 1: Presa4ek (Левая дуга #C1FF00) -->
-        <path class="hud-segment segment-presa4ek active" d="M 50 10 A 40 40 0 0 0 50 90" stroke="rgba(255, 255, 255, 0.25)" stroke-width="5" fill="none" data-player="0" />
-        
-        <!-- Сегмент 2: Art1zi (Верхняя правая дуга #00E5FF) -->
-        <path class="hud-segment segment-art1zi" d="M 50 10 A 40 40 0 0 1 90 50" stroke="rgba(255, 255, 255, 0.25)" stroke-width="5" fill="none" data-player="1" />
-        
-        <!-- Сегмент 3: Matvi4 (Нижняя правая дуга #FFC107) -->
-        <path class="hud-segment segment-matvi4" d="M 90 50 A 40 40 0 0 1 50 90" stroke="rgba(255, 255, 255, 0.25)" stroke-width="5" fill="none" data-player="2" />
-      </svg>
-
-      <!-- Центральный маркер HUD -->
-      <div class="hud-ring-center"></div>
+    <!-- Фоновый центрированный логотип с неоновым свечением (TASK-057) -->
+    <div class="doctrine-bg-logo-wrapper" aria-hidden="true">
+      <img src="/assets/images/NUANCE logo.png" alt="" class="doctrine-bg-logo" />
     </div>
 
-    <!-- Экран 1: Presa4ek (Слева текст 5 кол, справа иллюстрация 7 кол, акцент #C1FF00) -->
-    <div class="team-snap-screen screen-presa4ek" data-player-id="0">
-      <div class="container team-screen-container">
-        
-        <!-- Подсекция с текстом Команда по центру на 1-м месте -->
-        <div class="team-header-block text-center">
-          <h1 class="team-main-title">Команда</h1>
+    <div class="container doctrine-container">
+      <!-- Левоориентированный подблок: Доктрина (линия-трекер удалена - TASK-040) -->
+      <div class="doctrine-header-subblock">
+        <h2 class="doctrine-main-title section-main-title">Доктрина</h2>
+      </div>
+
+      <div class="doctrine-cards-grid">
+        <!-- Карточка 1 -->
+        <div class="doctrine-card border-glow-card">
+          <span class="edge-light" aria-hidden="true"></span>
+          <div class="border-glow-inner">
+            <div class="doctrine-card-bg"></div>
+            <div class="doctrine-card-overlay"></div>
+            <div class="doctrine-card-content">
+              <h3 class="doctrine-card-title">01. Асимметрия</h3>
+              <p class="doctrine-card-text">
+                Отказ от лобовых столкновений в пользу неожиданных ударов в уязвимые точки обороны противника.
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="grid-12">
-          <!-- Слева: Текст (5 колонок) -->
-          <div class="col-5 team-text-block">
-            <h2 class="team-player-name name-presa4ek">Presa4ek</h2>
-            <p class="team-paragraph">
-              Тактический лидер и инициатор штурмовых маневров. Специалист по асимметричным прорывам и ломанию линий обороны противника.
-            </p>
+        <!-- Карточка 2 -->
+        <div class="doctrine-card border-glow-card">
+          <span class="edge-light" aria-hidden="true"></span>
+          <div class="border-glow-inner">
+            <div class="doctrine-card-bg"></div>
+            <div class="doctrine-card-overlay"></div>
+            <div class="doctrine-card-content">
+              <h3 class="doctrine-card-title">02. Симбиоз</h3>
+              <p class="doctrine-card-text">
+                Слабые стороны одного бойца мгновенно и безоговорочно компенсируются агрессивной огневой мощью другого.
+              </p>
+            </div>
           </div>
+        </div>
 
-          <!-- Справа: Иллюстрация (7 колонок, формат 9:16) -->
-          <div class="col-7">
-            <div class="team-image-placeholder ratio-9-16">
-              <span class="placeholder-text">Presa4ek // Иллюстрация (9:16)</span>
+        <!-- Карточка 3 -->
+        <div class="doctrine-card border-glow-card">
+          <span class="edge-light" aria-hidden="true"></span>
+          <div class="border-glow-inner">
+            <div class="doctrine-card-bg"></div>
+            <div class="doctrine-card-overlay"></div>
+            <div class="doctrine-card-content">
+              <h3 class="doctrine-card-title">03. Автономия</h3>
+              <p class="doctrine-card-text">
+                Способность мгновенно перехватить инициативу и вытащить безнадежный бой при потере единого центра связи.
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Экран 2: Art1zi (Асимметрия: Слева иллюстрация 6 кол, справа текст 6 кол text-align: right, акцент #00E5FF) -->
-    <div class="team-snap-screen screen-art1zi" data-player-id="1">
-      <div class="container team-screen-container">
-        <div class="grid-12">
-          <!-- Слева: Иллюстрация (6 колонок, формат 9:16) -->
-          <div class="col-6">
-            <div class="team-image-placeholder ratio-9-16">
-              <span class="placeholder-text">Art1zi // Иллюстрация (9:16)</span>
-            </div>
-          </div>
-
-          <!-- Справа: Текст (6 колонок, выравнивание по правому краю) -->
-          <div class="col-6 team-text-block text-right">
-            <h2 class="team-player-name name-art1zi">Art1zi</h2>
-            <p class="team-paragraph">
-              Снайпер и мастер огневого контроля на дальних дистанциях. Замыкает уязвимости группы и мгновенно нейтрализует угрозы.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Экран 3: Matvi4 (Слева текст 5 кол, справа иллюстрация 7 кол, акцент #FFC107) -->
-    <div class="team-snap-screen screen-matvi4" data-player-id="2">
-      <div class="container team-screen-container">
-        <div class="grid-12">
-          <!-- Слева: Текст (5 колонок) -->
-          <div class="col-5 team-text-block">
-            <h2 class="team-player-name name-matvi4">Matvi4</h2>
-            <p class="team-paragraph">
-              Инженер ресурсов и мастер мгновенной адаптации. Вытягивает безнадежные дуэли на чистом характере и непредсказуемом стиле.
-            </p>
-          </div>
-
-          <!-- Справа: Иллюстрация (7 колонок, формат 9:16) -->
-          <div class="col-7">
-            <div class="team-image-placeholder ratio-9-16">
-              <span class="placeholder-text">Matvi4 // Иллюстрация (9:16)</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </section>
+
+  <!-- 3.6. Call to Action / Social Networks Section (TASK-021 Spec) -->
+  <section id="cta" class="cta-section">
+    <div class="container">
+      <!-- Section Header Block -->
+      <div class="cta-header-block">
+        <div class="cta-status-pill">
+          <span class="status-dot"></span>
+          <span class="status-text">СВЯЗЬ ОТКРЫТА // COMMS ONLINE</span>
+        </div>
+        <h2 class="cta-main-title">Присоединиться к отряду</h2>
+        <div class="cta-sub-title">// Выйти на связь</div>
+      </div>
+
+      <!-- HUD Social Cards Grid (4 Platforms) -->
+      <div class="cta-socials-grid">
+        <!-- 01. Telegram Card -->
+        <a href="https://t.me/" target="_blank" rel="noopener noreferrer" class="social-hud-card" data-platform="telegram">
+          <div class="hud-card-top">
+            <div class="hud-channel-badge">
+              <svg class="social-brand-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.67-.52.36-1 .54-1.42.53-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.75 3.99-1.74 6.66-2.89 8.01-3.46 3.82-1.59 4.61-1.87 5.13-1.88.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.16-.04.28z" fill="#24A1DE"/>
+              </svg>
+            </div>
+            <h3 class="platform-name-title">Telegram</h3>
+            <div class="hud-freq-code">FREQ // 433.075 MHz</div>
+          </div>
+          <div class="hud-card-bottom">
+            <div class="hud-action-btn">
+              <span>Открыть оперативный канал</span>
+              <span class="hud-action-arrow">→</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 02. YouTube Card -->
+        <a href="https://youtube.com/" target="_blank" rel="noopener noreferrer" class="social-hud-card" data-platform="youtube">
+          <div class="hud-card-top">
+            <div class="hud-channel-badge">
+              <svg class="social-brand-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM9.75 15.02V8.98L15 12l-5.25 3.02z" fill="#FF0000"/>
+              </svg>
+            </div>
+            <h3 class="platform-name-title">YouTube</h3>
+            <div class="hud-freq-code">FREQ // 868.100 MHz</div>
+          </div>
+          <div class="hud-card-bottom">
+            <div class="hud-action-btn">
+              <span>Смотреть архивы боев</span>
+              <span class="hud-action-arrow">→</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 03. TikTok Card -->
+        <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer" class="social-hud-card" data-platform="tiktok">
+          <div class="hud-card-top">
+            <div class="hud-channel-badge">
+              <svg class="social-brand-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .57.04.84.12V9.34a6.33 6.33 0 0 0-1-.08 6.34 6.34 0 1 0 6.34 6.34V8.56a8.27 8.27 0 0 0 4.93 1.61V6.69z" fill="#00F2FE"/>
+              </svg>
+            </div>
+            <h3 class="platform-name-title">TikTok</h3>
+            <div class="hud-freq-code">FREQ // 915.200 MHz</div>
+          </div>
+          <div class="hud-card-bottom">
+            <div class="hud-action-btn">
+              <span>Клипы и хайлайты</span>
+              <span class="hud-action-arrow">→</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 04. Instagram Card -->
+        <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="social-hud-card" data-platform="instagram">
+          <div class="hud-card-top">
+            <div class="hud-channel-badge">
+              <svg class="social-brand-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="#E1306C"/>
+              </svg>
+            </div>
+            <h3 class="platform-name-title">Instagram</h3>
+            <div class="hud-freq-code">FREQ // 108.000 MHz</div>
+          </div>
+          <div class="hud-card-bottom">
+            <div class="hud-action-btn">
+              <span>Истории и бэкстейдж</span>
+              <span class="hud-action-arrow">→</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3.7. Footer Section (TASK-022 Spec) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        
+        <!-- Column 1: Brand & Copyright -->
+        <div class="footer-brand-col">
+          <img src="/assets/images/2_Header.png" alt="NUANCE Logo" class="footer-logo" />
+          <p class="footer-copyright">
+            © 2026 NUANCE TACTICAL GROUP. ALL RIGHTS RESERVED.
+          </p>
+          <div class="footer-disclaimer">
+            Утилитарная архитектура быстрого реагирования.
+          </div>
+        </div>
+
+        <!-- Column 2: Navigation Links -->
+        <div class="footer-nav-col">
+          <div class="footer-col-title">// НАВИГАЦИЯ</div>
+          <ul class="footer-nav-list">
+            <li><a href="#genesis" class="footer-nav-link">О нас</a></li>
+            <li><a href="#team" class="footer-nav-link">Команда</a></li>
+            <li><a href="#doctrine" class="footer-nav-link">Доктрина</a></li>
+            <li><a href="#cta" class="footer-nav-link">Контакты</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Tactical System Status & Scroll Top -->
+        <div class="footer-meta-col">
+          <div class="footer-col-title">// СИСТЕМНЫЙ СТАТУС</div>
+          <div class="footer-meta-list">
+            <div class="meta-item">
+              <span>TIMEZONE: UTC+3 // KYIV / WARSAW</span>
+            </div>
+            <div class="meta-item">
+              <span class="server-dot"></span>
+              <span>SERVERS: ONLINE [99.9%]</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn-scroll-top">
+            <span>SCROLL TO TOP</span>
+            <span class="top-arrow">▲</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </footer>
 
   <script type="module" src="/src/scripts/main.js"></script>
 </body>

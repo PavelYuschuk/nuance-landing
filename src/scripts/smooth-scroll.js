@@ -1,33 +1,25 @@
-/* ==========================================
-   Lenis Smooth Scrolling System
-   ========================================== */
+/* ==========================================================================
+   TASK-079: SmoothScroll.js Engine (Reference: yarsy.com)
+   ========================================================================== */
 
-import Lenis from 'lenis';
-import 'lenis/dist/lenis.css';
+import SmoothScroll from 'smoothscroll-for-websites';
 
+/**
+ * Инициализация физического скролла колесика мыши и плавной навигации по якорям
+ */
 export function initSmoothScroll() {
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Smooth inertia easing
-    orientation: 'vertical',
-    gestureOrientation: 'vertical',
-    smoothWheel: true,
-    wheelMultiplier: 1.0,
-    touchMultiplier: 1.8,
-    infinite: false,
+  // 1. Инициализация движка SmoothScroll с точной калибровкой yarsy.com
+  SmoothScroll({
+    animationTime     : 1000, // [ms] Длительность плавного торможения
+    stepSize          : 100,  // [px] Шаг одного клика колесика
+    accelerationDelta : 50,   // [ms] Порог быстрого вращения
+    accelerationMax   : 3,    // Максимальное ускорение
+    touchpadSupport   : false // Сохранение нативного 1:1 скролла на тачпадах
   });
 
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
+  // 2. Плавная якорная навигация по клику на ссылки (#genesis, #team, #doctrine, #cta)
+  const headerOffset = 70; // Отступ под фиксированный хедер
 
-  requestAnimationFrame(raf);
-
-  // Store instance globally for scroll event listeners
-  window.lenisInstance = lenis;
-
-  // Intercept anchor clicks for Lenis smooth navigation
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
@@ -36,13 +28,17 @@ export function initSmoothScroll() {
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         e.preventDefault();
-        lenis.scrollTo(targetElement, {
-          offset: -70,
-          duration: 1.2,
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
         });
       }
     });
   });
 
-  return lenis;
+  console.log('SmoothScroll.js (v1.4.10) engine initialized with yarsy.com calibration.');
 }
+

@@ -1,5 +1,5 @@
 /* ==========================================
-   NUANCE Design System Tokens (PRD v.1.1)
+   NUANCE Design System Tokens (TASK-002 Spec)
    ========================================== */
 
 :root {
@@ -22,17 +22,34 @@
   --font-heading: 'Rajdhani', sans-serif;
   --font-body: 'JetBrains Mono', monospace;
   --font-ui: 'Sofia Sans Semi Condensed', sans-serif;
+  --font-hero: 'Bounded', sans-serif;
+  --font-display: 'Bounded', sans-serif;
   
   /* Typography Sizes & Heights */
   --font-size-body: 1rem; /* 16px */
   --line-height-body: 1.5;
   
-  /* Layout & Grid Tokens */
+  /* Spacing Scale (8pt System - TASK-002) */
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
+  --space-4xl: 128px;
+
+  /* Section Dynamic Rhythm */
+  --section-padding-y: clamp(64px, 8vw, 120px);
+
+  /* Layout & Grid Tokens (Ultra-Wide > 1440px) */
   --header-height: 64px;
   --grid-columns: 12;
-  --grid-gap: 24px;
   --container-max-width: 1440px;
   --container-padding: 32px;
+  --grid-gap: 24px;
   
   /* Visual Effects */
   --glass-bg: rgba(20, 28, 41, 0.65);
@@ -40,19 +57,52 @@
   --glass-blur: blur(12px);
 }
 
-/* Tablet Overrides */
+/* =========================================================
+   TASK-038: 1. FULL HD СТАНДАРТ (1920 × 1080 px):
+   ========================================================= */
+@media (min-width: 1600px) and (max-width: 2048px) {
+  :root {
+    --header-height: 72px;
+    --container-max-width: 1540px;
+    --container-padding: 48px;
+    --grid-gap: 28px;
+  }
+}
+
+/* =========================================================
+   TASK-038: 2. 2K / QHD СТАНДАРТ (2560 × 1440 px):
+   ========================================================= */
+@media (min-width: 2049px) {
+  :root {
+    --header-height: 84px;
+    --container-max-width: 1820px;
+    --container-padding: 64px;
+    --grid-gap: 36px;
+  }
+}
+
+/* Desktop Breakpoint (1025px - 1440px) */
+@media (max-width: 1440px) {
+  :root {
+    --grid-columns: 12;
+    --grid-gap: 24px;
+    --container-padding: 32px;
+  }
+}
+
+/* Tablet Overrides (769px - 1024px) */
 @media (max-width: 1024px) {
   :root {
     --grid-columns: 8;
-    --grid-gap: 16px;
+    --grid-gap: 20px;
     --container-padding: 24px;
   }
 }
 
-/* Mobile Overrides */
+/* Mobile Overrides (320px - 768px) */
 @media (max-width: 768px) {
   :root {
-    --grid-columns: 1;
+    --grid-columns: 4;
     --grid-gap: 16px;
     --container-padding: 16px;
   }

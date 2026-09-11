@@ -9,10 +9,29 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   background-color: var(--color-bg-base);
   color-scheme: dark;
+  /* TASK-079: Стилизация скроллбара в стиле минимализма yarsy.com */
+  scrollbar-width: thin;
+  scrollbar-color: #27354D transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27354D;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00E5FF;
 }
 
 body {
@@ -41,4 +60,16 @@ a {
 
 ul, ol {
   list-style: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

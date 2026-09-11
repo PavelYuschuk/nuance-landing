@@ -10,6 +10,11 @@
 @import './hero.css';
 @import './genesis.css';
 @import './team.css';
+@import './doctrine.css';
+@import './border-glow.css';
+@import './target-cursor.css';
+@import './socials.css';
+@import './footer.css';
 
 /* Global Fixed Background (Persistent Hero Atmosphere across all blocks) */
 .global-bg {
@@ -22,23 +27,75 @@
   overflow: hidden;
 }
 
+/* Постоянный базовый градиент сайта - Слой 1 (неизменен для всех секций) */
 .global-bg-gradient {
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at 50% 45%, #141C29 0%, #0F0F0F 85%);
   opacity: 0.95;
+  z-index: 0;
+  pointer-events: none;
 }
+
+/* ==========================================
+   Канонический логотип .global-bg-logo (TASK-037)
+   ========================================== */
 
 .global-bg-logo {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(85vw, 700px);
+  /* Привязка к правой половине сетки Hero */
+  right: clamp(10px, 4vw, 60px);
+  transform: translateY(-50%);
+  
+  /* РАЗМЕР УВЕЛИЧЕН В 2 РАЗА: */
+  width: clamp(620px, 54vw, 1050px);
   height: auto;
-  opacity: 0.22;
-  filter: blur(9px) drop-shadow(0 0 25px rgba(0, 229, 255, 0.15));
+  
+  /* Полная четкость (без блюра) и 100% сочные цвета */
+  opacity: 1;
+  filter: none;
+  
+  /* GLOW-ЭФФЕКТ УМЕНЬШЕН В 2 РАЗА (деликатная аура): */
+  filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.18))
+          drop-shadow(0 0 35px rgba(193, 255, 0, 0.12));
+          
   user-select: none;
+  pointer-events: none;
+  z-index: 1;
+  
+  /* Анимация проявления при загрузке страницы */
+  animation: bgLogoReveal 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes bgLogoReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) translateX(60px) scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0) scale(1);
+  }
+}
+
+/* TASK-078: Компенсация смещения логотипа влево на мониторах 2K+ (сохранение посадки HD) */
+@media (min-width: 1921px) {
+  .global-bg-logo {
+    /* Смещение влево пропорционально полуразнице ширины вьюпорта: */
+    right: calc(60px + (100vw - 1920px) / 2);
+  }
+}
+
+/* Адаптив для планшетов и мобильных устройств */
+@media (max-width: 1024px) {
+  .global-bg-logo {
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(85vw, 540px);
+    opacity: 0.35; /* На мобилках подложка мягче под текстом */
+  }
 }
 
 /* Shared Utilities */

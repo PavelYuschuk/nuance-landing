@@ -4,6 +4,27 @@
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Rajdhani:wght@600;700&family=Sofia+Sans+Semi+Condensed:wght@500&display=swap');
 
+/* ==========================================
+   Bounded by Vlad Churkin (@font-face)
+   ========================================== */
+@font-face {
+  font-family: 'Bounded';
+  src: url('/assets/fonts/Bounded-Bold.woff2') format('woff2'),
+       url('/assets/fonts/Bounded-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bounded';
+  src: url('/assets/fonts/Bounded-Light.woff2') format('woff2'),
+       url('/assets/fonts/Bounded-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   font-family: var(--font-body);
   font-size: var(--font-size-body);
@@ -40,12 +61,69 @@ h3 {
 /* UI Elements & Subtitles: Sofia Sans Semi Condensed, 500 */
 .ui-text,
 .subtitle,
-.nav-link,
 .badge,
 .tag {
   font-family: var(--font-ui);
   font-weight: 500;
   letter-spacing: 0.02em;
+}
+
+/* ==========================================
+   TASK-039: Unified Section Header Subblock (Bounded by Vlad Churkin)
+   ========================================== */
+.section-header-subblock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 8px;
+  margin-bottom: 32px;
+  width: 100%;
+  max-width: 320px;
+  align-self: flex-start;
+}
+
+.section-main-title {
+  font-family: 'Bounded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 3.8vw, 3.4rem);
+  text-transform: uppercase;
+  color: #FFFFFF;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  margin: 0;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.12);
+}
+
+.section-tracker-line {
+  width: 100%;
+  max-width: 280px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-tracker-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #FFFFFF;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 2049px) {
+  .section-header-subblock {
+    max-width: 380px;
+  }
+
+  .section-tracker-line {
+    max-width: 380px;
+    height: 3px;
+  }
 }
 
 /* Secondary Text */
@@ -57,5 +135,18 @@ h3 {
 @media (max-width: 1024px) {
   h1, h2, h3 {
     font-size: calc(100% * 0.8);
+  }
+}
+
+/* =========================================================
+   TASK-047: Унификация Размера Заголовков Разделов (32px на Мобильных)
+   ========================================================= */
+@media (max-width: 768px) {
+  .about-main-title,
+  .team-main-title,
+  .doctrine-main-title,
+  .cta-main-title {
+    font-size: 32px !important;
+    line-height: 1.2;
   }
 }
