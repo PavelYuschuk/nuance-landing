@@ -9,8 +9,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  /* Исключено отсечение компенсированного текста (TASK-058): */
+  position: sticky; /* TASK-080: Аппаратная плавная фиксация на экране без дрожания JS */
+  top: 0;
   overflow: visible;
   background: transparent;
   padding: 0;
@@ -30,7 +30,7 @@
 }
 
 /* ==========================================
-   Левая колонка Hero: АБСОЛЮТНО СТАТИЧНЫЙ ТЕКСТ (TASK-055 / TASK-058)
+   Левая колонка Hero: АБСОЛЮТНО СТАТИЧНЫЙ ТЕКСТ (TASK-055 / TASK-058 / TASK-080)
    ========================================== */
 
 .hero-left-content {
@@ -44,9 +44,9 @@
   
   /* Полная статика: никакого движения и никаких стартовых анимаций */
   opacity: 1;
-  transform: none;
+  transform: none !important; /* Гарантия отсутствия смещений */
   animation: none !important;
-  will-change: transform, opacity;
+  will-change: opacity; /* Исключен transform для освобождения GPU */
 }
 
 .hero-monolith-wrapper {

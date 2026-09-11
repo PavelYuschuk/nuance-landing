@@ -44,8 +44,7 @@ export function initHeroParallax() {
       heroContent.style.pointerEvents = 'none';
     }
 
-    // Компенсация скролла: текст зафиксирован на экране (0px смещения относительно монитора):
-    heroContent.style.transform = scrollY > 0 ? `translateY(${scrollY}px)` : 'none';
+    // TASK-080: Устранено дрожание: transform не модифицируется в JS, фиксация выполняется аппаратно через CSS
   }
 
   window.addEventListener('scroll', updateHeroScrollFade, { passive: true });
